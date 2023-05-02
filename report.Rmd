@@ -1,0 +1,17 @@
+---
+title: "Final Project"
+subtitle: "Car auctions analysis"
+author: "Narek Sahakyan, Erik Nuroyan"
+output: pdf_document
+---
+  
+      
+```{r, echo=F}
+library(ggplot2)
+library(dplyr)
+library(plotly)
+```
+
+```{r}
+auctions_data <- read.csv("./data/car_prices.csv")
+```
