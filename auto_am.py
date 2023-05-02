@@ -42,7 +42,24 @@ class AutoAmScrapper:
         if search_button:
             search_button.click()
         time.sleep(10)
+        self.get_model_data()
 
+    def get_model_data(self):
+        all_pages_viewed = False
+        page = 1
+        while not all_pages_viewed:
+            search_result = self.driver.find_element(By.ID, "search-result")
+            desc = search_result.find_elements(By.CLASS_NAME, "card-content")
+            prices = search_result.find_elements(By.CLASS_NAME, "card-action")
+            page = page + 1
+            try:
+                next_page_element = self.driver.find_element(By.LINK_TEXT, str(page))
+                next_page_element.click()
+            except:
+                print("Element not found")
+                all_pages_viewed = True
+                continue
+            time.sleep(10)
 
     def get_make_ids(self):
         selection_element = self.driver.find_element(By.ID, "filter-make")
