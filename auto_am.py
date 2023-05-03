@@ -5,8 +5,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from urllib.parse import urlencode
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
+from bs4 import BeautifulSoup
+import requests
 import time
 import json
+import pandas as pd
 
 
 
@@ -16,13 +20,14 @@ class AutoAmScrapper:
         self.driver = webdriver.Chrome(driver_path)
         self.driver.get(main_url)
         self.main_url = main_url
+        self.df = pd.DataFrame()
+        self.rows = []
         self.search_cars()
     
     def search_cars(self):
         make_found = self.filter_attribute("BMW","select2-filter-make-container","select2-search__field","select2-results__option")
         if make_found:
             model_found = self.filter_attribute("3 Series","select2-v-model-container","select2-search__field","select2-results__option")
-            print(model_found)
             if model_found:
                 year_from = 2017
                 year_to = 2023
@@ -35,31 +40,49 @@ class AutoAmScrapper:
                 input_element = self.driver.find_element(By.CLASS_NAME, "select2-search__field")
                 input_element.send_keys(year_to)
                 input_element.send_keys(Keys.ENTER)
-                time.sleep(10)
+                time.sleep(2)
 
         self.driver.find_elements(By.CLASS_NAME, "lever")[2].click()
         search_button = self.driver.find_element(By.ID, "search-btn")
         if search_button:
             search_button.click()
-        time.sleep(10)
+        time.sleep(5)
         self.get_model_data()
 
+    def get_car_details(self, link):
+        page = requests.get("https://auto.am/lang/en", headers={"referer":link})
+        soup = BeautifulSoup(page.content, 'html.parser')
+        table = soup.find('table', class_='pad-top-6 ad-det')
+        name = soup.find("title")
+        row = {}
+        for tr in table.tbody.find_all("tr"):
+            table_values = tr.find_all("td")
+            for i in range(0, len(table_values) - 1):
+                column = table_values[i].text.strip().replace(" ", "")
+                value = table_values[i + 1].text.strip().replace(" ", "")
+                row[column] = value
+        row["name"] = name.text.strip().replace(" - Auto.am", "")
+        self.rows.append(row)
+    
     def get_model_data(self):
         all_pages_viewed = False
         page = 1
         while not all_pages_viewed:
             search_result = self.driver.find_element(By.ID, "search-result")
-            desc = search_result.find_elements(By.CLASS_NAME, "card-content")
-            prices = search_result.find_elements(By.CLASS_NAME, "card-action")
+            offers = search_result.find_elements(By.CLASS_NAME, "card")
+            links = [offer.find_element(By.TAG_NAME, "a").get_attribute("href") for offer in offers]
+            for link in links:
+                self.get_car_details(link)
             page = page + 1
             try:
                 next_page_element = self.driver.find_element(By.LINK_TEXT, str(page))
                 next_page_element.click()
             except:
-                print("Element not found")
+                print("Page element not found")
                 all_pages_viewed = True
                 continue
-            time.sleep(10)
+            time.sleep(3)
+        pd.DataFrame(self.rows).to_csv("test.csv")
 
     def get_make_ids(self):
         selection_element = self.driver.find_element(By.ID, "filter-make")
