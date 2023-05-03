@@ -11,7 +11,8 @@ import requests
 import time
 import json
 import pandas as pd
-
+import os
+import csv
 
 
 class AutoAmScrapper:
@@ -20,10 +21,20 @@ class AutoAmScrapper:
         self.driver = webdriver.Chrome(driver_path)
         self.driver.get(main_url)
         self.main_url = main_url
-        self.df = pd.DataFrame()
-        self.rows = []
-        self.search_cars()
+        self.start()
     
+    def start(self):
+        headers = ["Id","Mileage","Version","BodyStyle","Gearbox","HandDrive","Engine","Color","name","InteriorColor","EngineVolume","Horsepower","Drivetrain","DoorCount","Wheels","EngineCylinders"]
+        write_headers = False
+        if not os.path.exists("cars_armenia.csv"):
+             write_headers = True
+
+        with open("./cars_armenia.csv", 'a+', newline='') as f:
+            self.writer = csv.writer(f)
+            if write_headers:
+                self.writer.writerow(headers)
+            self.search_cars()
+                    
     def search_cars(self):
         make_found = self.filter_attribute("BMW","select2-filter-make-container","select2-search__field","select2-results__option")
         if make_found:
@@ -62,7 +73,8 @@ class AutoAmScrapper:
                 value = table_values[i + 1].text.strip().replace(" ", "")
                 row[column] = value
         row["name"] = name.text.strip().replace(" - Auto.am", "")
-        self.rows.append(row)
+        self.writer.writerow(row.values())
+        print("appended a row")
     
     def get_model_data(self):
         all_pages_viewed = False
@@ -82,7 +94,7 @@ class AutoAmScrapper:
                 all_pages_viewed = True
                 continue
             time.sleep(3)
-        pd.DataFrame(self.rows).to_csv("test.csv")
+        # pd.DataFrame(self.rows).to_csv("test.csv")
 
     def get_make_ids(self):
         selection_element = self.driver.find_element(By.ID, "filter-make")
@@ -100,8 +112,7 @@ class AutoAmScrapper:
         input_element.send_keys(Keys.ENTER)
         time.sleep(3)
         return True
-
-    
+  
     def search_by_make(self, make_id):
         params = {
                     "category":"1",
