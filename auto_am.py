@@ -45,10 +45,10 @@ class AutoAmScrapper:
         self.search_cars()
 
     def search_cars(self):
-        us_cars = pd.read_csv(os.path.join("data","filtered_cars.csv"))
-        groups = us_cars.groupby(["Make","Model.Group"]).groups
-        for group_name, _  in groups.items():
-            self.make, self.model = group_name
+        us_cars = pd.read_csv(os.path.join("data","car_models.csv"))
+        for _, row in us_cars.iterrows():
+            self.make = row['Make']
+            self.model = row['Model.Group']
             logging.info(f"Fetching data for {self.make} {self.model}")
             self.search_cars_by_make()
             header = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, "header-logo")))
@@ -113,18 +113,18 @@ class AutoAmScrapper:
                 writer.writerow(row)
     
     def get_offer_links(self):
-        links_xpath = "//div[@id='search-result']//div[contains(@id, 'ad')]//a[@href]"
-        prices_xpath = "//div[@id='search-result']//div[@class='card-action']//span"
-        link_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, links_xpath)))
-        links = [link.get_attribute("href") for link in link_elements]
-        price_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, prices_xpath)))
-        prices = [price.text for price in price_elements]
-        price_iterator = 0
-        for link in list(set(links)): 
-            if "https://auto.am/offer/" in link:
-                price = prices[price_iterator]
+        offers_xpath = "//div[@id='search-result']//div[contains(@id, 'ad')]"
+        # prices_xpath = "//div[@id='search-result']//div[@class='card-action']//div[@class='price bold blue-text']"
+        offers_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, offers_xpath)))
+        already_visited_links = []
+        for offer_element in offers_elements:
+            div_id = offer_element.get_attribute("id")
+            link = offer_element.find_element(By.XPATH, f"//div[@id='{div_id}']//div[@class='card-content']//a[@href]").get_attribute("href")
+            if link not in already_visited_links:
+                price = offer_element.find_element(By.XPATH, f"//div[@id='{div_id}']//div[@class='card-action']//div[@class='price bold blue-text']").text
+                already_visited_links.append(link)
+                logging.info(f"The link {link} and the price {price}")
                 self.get_car_details(link, price)
-                price_iterator = price_iterator + 2
         self.page = self.page + 1
         next_page_element = self.driver.find_element(By.LINK_TEXT, str(self.page))
         next_page_element.click()
