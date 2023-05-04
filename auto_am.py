@@ -32,15 +32,16 @@ class AutoAmScrapper:
         self.start()
     
     def start(self):
-        headers = ["Id","Mileage","Version","BodyStyle","Gearbox","HandDrive","Engine","Color","name","InteriorColor","EngineVolume","Horsepower","Drivetrain","DoorCount","Wheels","EngineCylinders","OfferId"]
+        self.columns = ["OfferId","Mileage","Version","BodyStyle","Gearbox","HandDrive","Engine",
+                        "Color","InteriorColor","EngineVolume","Horsepower","Drivetrain","DoorCount",
+                        "Wheels","EngineCylinders","Name","Price","Make","Model"]
         write_headers = False
         if not os.path.exists("cars_armenia.csv"):
              write_headers = True
         with open("./cars_armenia.csv", 'a+', newline='') as f:
             self.writer = csv.writer(f)
             if write_headers:
-                self.writer.writerow(headers)
-        
+                self.writer.writerow(self.columns)
         self.search_cars()
 
     def search_cars(self):
@@ -88,34 +89,42 @@ class AutoAmScrapper:
                     missing_models_writer = csv.writer(f)
                     missing_models_writer.writerow([self.make, self.model])
 
-    def get_car_details(self, link):
-        offer_id = link.replace("https://auto.am/offer/","")
+    def get_car_details(self, link, price):
+        self.offer_id = link.replace("https://auto.am/offer/","")
         page = requests.get("https://auto.am/lang/en", headers={"referer":link})
         soup = BeautifulSoup(page.content, 'html.parser')
         table = soup.find('table', class_='pad-top-6 ad-det')
         name = soup.find("title")
-        row = {}
-        for tr in table.tbody.find_all("tr"):
-            table_values = tr.find_all("td")
-            for i in range(0, len(table_values) - 1):
-                column = table_values[i].text.strip().replace(" ", "")
-                value = table_values[i + 1].text.strip().replace(" ", "")
-                row[column] = value
-        row["name"] = name.text.strip().replace(" - Auto.am", "")
-        row["model"] = self.model
-        row["make"] = self.make
-        row["offer_id"] = offer_id
-        with open("./cars_armenia.csv", 'a+', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(row.values())
+        row = dict.fromkeys(self.columns)
+        if table:
+            for tr in table.tbody.find_all("tr"):
+                table_values = tr.find_all("td")
+                for i in range(0, len(table_values) - 1):
+                    column = table_values[i].text.strip().replace(" ", "")
+                    value = table_values[i + 1].text.strip().replace(" ", "")
+                    row[column] = value
+            row["Name"] = name.text.strip().replace(" - Auto.am", "")
+            row["Price"] = price
+            row["Model"] = self.model
+            row["Make"] = self.make
+            row["OfferId"] = self.offer_id
+            with open("./cars_armenia.csv", 'a+', newline='') as f:
+                writer = csv.DictWriter(f,fieldnames=self.columns)
+                writer.writerow(row)
     
     def get_offer_links(self):
         links_xpath = "//div[@id='search-result']//div[contains(@id, 'ad')]//a[@href]"
+        prices_xpath = "//div[@id='search-result']//div[@class='card-action']//span"
         link_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, links_xpath)))
         links = [link.get_attribute("href") for link in link_elements]
+        price_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, prices_xpath)))
+        prices = [price.text for price in price_elements]
+        price_iterator = 0
         for link in list(set(links)): 
             if "https://auto.am/offer/" in link:
-                self.get_car_details(link)
+                price = prices[price_iterator]
+                self.get_car_details(link, price)
+                price_iterator = price_iterator + 2
         self.page = self.page + 1
         next_page_element = self.driver.find_element(By.LINK_TEXT, str(self.page))
         next_page_element.click()
@@ -139,19 +148,23 @@ class AutoAmScrapper:
                 all_pages_viewed = True
                 continue
             except Exception as e:
+                logging.info(f"Exception occured while fetching {self.make} {self.model} {self.offer_id} at page {self.page}")
                 logging.error(str(e))
                 raise e
 
     def filter_attribute(self,attribute,select_id,input_id,results_cls):
-        select_element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, select_id)))
-        select_element.click()
-        input_element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, input_id)))
-        input_element.send_keys(attribute)
-        resulted_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, results_cls)))
-        if resulted_elements[0].text.lower() == "no results found":
+        try:        
+            select_element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, select_id)))
+            select_element.click()
+            input_element = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, input_id)))
+            input_element.send_keys(attribute)
+            resulted_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.CLASS_NAME, results_cls)))
+            if resulted_elements[0].text.lower() == "no results found":
+                return False
+            input_element.send_keys(Keys.ENTER)
+            return True
+        except TimeoutException:
             return False
-        input_element.send_keys(Keys.ENTER)
-        return True
 
 
 AutoAmScrapper()
