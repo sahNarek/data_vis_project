@@ -8,6 +8,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.common.exceptions import StaleElementReferenceException
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import requests, time, os, logging, csv, sys
 import pandas as pd
@@ -26,12 +27,15 @@ class AutoAmScrapper:
 
     def __init__(self, main_url = "https://auto.am/lang/en") -> None:
         chrome_service = webdriver.chrome.service.Service(executable_path=ChromeDriverManager().install())
+        # options = Options()
+        # options.headless = True
         self.driver = webdriver.Chrome(service=chrome_service)
         self.main_url = main_url
         self.driver.get(self.main_url)
         self.start()
     
     def start(self):
+        self.already_scraped_offers = []
         self.columns = ["OfferId","Mileage","Version","BodyStyle","Gearbox","HandDrive","Engine",
                         "Color","InteriorColor","EngineVolume","Horsepower","Drivetrain","DoorCount",
                         "Wheels","EngineCylinders","Name","Price","Make","Model"]
@@ -91,30 +95,31 @@ class AutoAmScrapper:
 
     def get_car_details(self, link, price):
         self.offer_id = link.replace("https://auto.am/offer/","")
-        page = requests.get("https://auto.am/lang/en", headers={"referer":link})
-        soup = BeautifulSoup(page.content, 'html.parser')
-        table = soup.find('table', class_='pad-top-6 ad-det')
-        name = soup.find("title")
-        row = dict.fromkeys(self.columns)
-        if table:
-            for tr in table.tbody.find_all("tr"):
-                table_values = tr.find_all("td")
-                for i in range(0, len(table_values) - 1):
-                    column = table_values[i].text.strip().replace(" ", "")
-                    value = table_values[i + 1].text.strip().replace(" ", "")
-                    row[column] = value
-            row["Name"] = name.text.strip().replace(" - Auto.am", "")
-            row["Price"] = price
-            row["Model"] = self.model
-            row["Make"] = self.make
-            row["OfferId"] = self.offer_id
-            with open("./cars_armenia.csv", 'a+', newline='') as f:
-                writer = csv.DictWriter(f,fieldnames=self.columns)
-                writer.writerow(row)
+        if self.offer_id not in self.already_scraped_offers:
+            self.already_scraped_offers.append(self.offer_id)
+            page = requests.get("https://auto.am/lang/en", headers={"referer":link})
+            soup = BeautifulSoup(page.content, 'html.parser')
+            table = soup.find('table', class_='pad-top-6 ad-det')
+            name = soup.find("title")
+            row = dict.fromkeys(self.columns)
+            if table:
+                for tr in table.tbody.find_all("tr"):
+                    table_values = tr.find_all("td")
+                    for i in range(0, len(table_values) - 1):
+                        column = table_values[i].text.strip().replace(" ", "")
+                        value = table_values[i + 1].text.strip().replace(" ", "")
+                        row[column] = value
+                row["Name"] = name.text.strip().replace(" - Auto.am", "")
+                row["Price"] = price
+                row["Model"] = self.model
+                row["Make"] = self.make
+                row["OfferId"] = self.offer_id
+                with open("./cars_armenia.csv", 'a+', newline='') as f:
+                    writer = csv.DictWriter(f,fieldnames=self.columns)
+                    writer.writerow(row)
     
     def get_offer_links(self):
-        offers_xpath = "//div[@id='search-result']//div[contains(@id, 'ad')]"
-        # prices_xpath = "//div[@id='search-result']//div[@class='card-action']//div[@class='price bold blue-text']"
+        offers_xpath = "//div[@id='search-result']//div[contains(@id, 'ad-')]"
         offers_elements = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, offers_xpath)))
         already_visited_links = []
         for offer_element in offers_elements:
@@ -123,7 +128,6 @@ class AutoAmScrapper:
             if link not in already_visited_links:
                 price = offer_element.find_element(By.XPATH, f"//div[@id='{div_id}']//div[@class='card-action']//div[@class='price bold blue-text']").text
                 already_visited_links.append(link)
-                logging.info(f"The link {link} and the price {price}")
                 self.get_car_details(link, price)
         self.page = self.page + 1
         next_page_element = self.driver.find_element(By.LINK_TEXT, str(self.page))
@@ -139,7 +143,7 @@ class AutoAmScrapper:
                 logging.info("StaleElementReference retrying !")
                 time.sleep(3)
                 self.get_offer_links()
-            except NoSuchElementException:
+            except NoSuchElementException as e:
                 logging.info("All pages viewed")
                 all_pages_viewed = True
                 continue
