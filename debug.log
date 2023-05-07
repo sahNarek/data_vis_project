@@ -1,206 +1,354 @@
-2023-05-04 03:51:49,218 [INFO] ====== WebDriver manager ======
-2023-05-04 03:51:49,324 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
-2023-05-04 03:51:54,473 [INFO] Fetching data for ACURA ILX
-2023-05-04 03:52:00,262 [INFO] All pages viewed
-2023-05-04 03:52:01,033 [INFO] Fetching data for ACURA MDX
-2023-05-04 03:52:05,525 [INFO] All pages viewed
-2023-05-04 03:52:06,188 [INFO] Fetching data for ACURA RDX
-2023-05-04 03:52:10,644 [INFO] All pages viewed
-2023-05-04 03:52:11,303 [INFO] Fetching data for ACURA RDX ADVANC
-2023-05-04 03:52:12,090 [INFO] Unable to find data for ACURA RDX ADVANC
-2023-05-04 03:52:12,800 [INFO] Fetching data for ACURA TLX
-2023-05-04 03:52:16,709 [INFO] All pages viewed
-2023-05-04 03:52:17,383 [INFO] Fetching data for AUDI A3
-2023-05-04 03:52:29,376 [INFO] No results were found
-2023-05-04 03:52:30,132 [INFO] Fetching data for AUDI A4
-2023-05-04 03:52:32,928 [INFO] All pages viewed
-2023-05-04 03:52:33,594 [INFO] Fetching data for AUDI A6
-2023-05-04 03:52:38,230 [INFO] All pages viewed
-2023-05-04 03:52:38,921 [INFO] Fetching data for AUDI Q3 PREMIUM
-2023-05-04 03:52:39,713 [INFO] Unable to find data for AUDI Q3 PREMIUM
-2023-05-04 03:52:40,378 [INFO] Fetching data for AUDI Q3 PRESTIG
-2023-05-04 03:52:41,211 [INFO] Unable to find data for AUDI Q3 PRESTIG
-2023-05-04 03:52:41,870 [INFO] Fetching data for AUDI Q7 PREMIUM
-2023-05-04 03:52:42,679 [INFO] Unable to find data for AUDI Q7 PREMIUM
-2023-05-04 03:52:43,353 [INFO] Fetching data for BMW 2 SERIES
-2023-05-04 03:52:47,473 [INFO] All pages viewed
-2023-05-04 03:52:48,158 [INFO] Fetching data for BMW 3 SERIES
-2023-05-04 03:53:19,023 [INFO] StaleElementReference retrying !
-2023-05-04 03:53:34,965 [INFO] No results were found
-2023-05-04 03:53:35,717 [INFO] Fetching data for BMW 4 SERIES
-2023-05-04 03:53:58,641 [INFO] All pages viewed
-2023-05-04 03:53:59,382 [INFO] Fetching data for BMW 428 I
-2023-05-04 03:54:00,353 [INFO] Unable to find data for BMW 428 I
-2023-05-04 03:54:01,268 [INFO] Fetching data for BMW 428 XI
-2023-05-04 03:54:02,000 [INFO] Unable to find data for BMW 428 XI
-2023-05-04 03:54:02,691 [INFO] Fetching data for BMW 5 SERIES
-2023-05-04 03:54:32,840 [INFO] StaleElementReference retrying !
-2023-05-04 03:54:46,941 [INFO] No results were found
-2023-05-04 03:54:47,670 [INFO] Fetching data for BMW 535 I
-2023-05-04 03:54:48,799 [INFO] Unable to find data for BMW 535 I
-2023-05-04 03:54:49,455 [INFO] Fetching data for BMW 550 I
-2023-05-04 03:54:50,299 [INFO] Unable to find data for BMW 550 I
-2023-05-04 03:54:50,971 [INFO] Fetching data for BMW 6 SERIES
-2023-05-04 03:54:56,413 [INFO] All pages viewed
-2023-05-04 03:54:57,143 [INFO] Fetching data for BMW M4
-2023-05-04 03:55:01,037 [INFO] All pages viewed
-2023-05-04 03:55:01,777 [INFO] Fetching data for BMW M6
-2023-05-04 03:55:14,387 [INFO] No results were found
-2023-05-04 03:55:15,077 [INFO] Fetching data for BMW X1 XDRIVE2
-2023-05-04 03:55:16,007 [INFO] Unable to find data for BMW X1 XDRIVE2
-2023-05-04 03:55:16,693 [INFO] Fetching data for BMW X3
-2023-05-04 03:55:28,811 [INFO] No results were found
-2023-05-04 03:55:29,609 [INFO] Fetching data for BMW X5 SDRIVE3
-2023-05-04 03:55:30,537 [INFO] Unable to find data for BMW X5 SDRIVE3
-2023-05-04 03:55:31,219 [INFO] Fetching data for BMW X5 XDRIVE3
-2023-05-04 03:55:32,075 [INFO] Unable to find data for BMW X5 XDRIVE3
-2023-05-04 03:55:32,744 [INFO] Fetching data for BMW X5 XDRIVE5
-2023-05-04 03:55:33,497 [INFO] Unable to find data for BMW X5 XDRIVE5
-2023-05-04 03:55:34,156 [INFO] Fetching data for BMW X6
-2023-05-04 03:55:56,270 [INFO] All pages viewed
-2023-05-04 03:55:56,968 [INFO] Fetching data for BMW Z4
-2023-05-04 03:55:59,523 [INFO] No results were found
-2023-05-04 03:56:00,242 [INFO] Fetching data for HONDA ACCORD
-2023-05-04 03:56:29,760 [INFO] StaleElementReference retrying !
-2023-05-04 03:56:37,242 [INFO] No results were found
-2023-05-04 03:56:37,944 [INFO] Fetching data for HONDA ACCORD EX
-2023-05-04 03:56:38,939 [INFO] Unable to find data for HONDA ACCORD EX
-2023-05-04 03:56:39,638 [INFO] Fetching data for HONDA ACCORD EXL
-2023-05-04 03:56:40,548 [INFO] Unable to find data for HONDA ACCORD EXL
-2023-05-04 03:56:41,173 [INFO] Fetching data for HONDA ACCORD LX
-2023-05-04 03:56:42,003 [INFO] Unable to find data for HONDA ACCORD LX
-2023-05-04 03:56:42,722 [INFO] Fetching data for HONDA ACCORD SPO
-2023-05-04 03:56:43,677 [INFO] Unable to find data for HONDA ACCORD SPO
-2023-05-04 03:56:44,346 [INFO] Fetching data for HONDA CIVIC
-2023-05-04 03:56:57,203 [INFO] All pages viewed
-2023-05-04 03:56:57,900 [INFO] Fetching data for HONDA CIVIC EXL
-2023-05-04 03:56:58,859 [INFO] Unable to find data for HONDA CIVIC EXL
-2023-05-04 03:56:59,635 [INFO] Fetching data for HONDA CIVIC LX
-2023-05-04 03:57:00,500 [INFO] Unable to find data for HONDA CIVIC LX
-2023-05-04 03:57:01,207 [INFO] Fetching data for HONDA CR-V EX
-2023-05-04 03:57:02,179 [INFO] Unable to find data for HONDA CR-V EX
-2023-05-04 03:57:02,801 [INFO] Fetching data for HONDA CR-V EXL
-2023-05-04 03:57:03,821 [INFO] Unable to find data for HONDA CR-V EXL
-2023-05-04 03:57:04,491 [INFO] Fetching data for HONDA CR-V LX
-2023-05-04 03:57:05,316 [INFO] Unable to find data for HONDA CR-V LX
-2023-05-04 03:57:05,983 [INFO] Fetching data for HONDA CR-V SE
-2023-05-04 03:57:06,932 [INFO] Unable to find data for HONDA CR-V SE
-2023-05-04 03:57:07,610 [INFO] Fetching data for HONDA CR-V TOURI
-2023-05-04 03:57:08,552 [INFO] Unable to find data for HONDA CR-V TOURI
-2023-05-04 03:57:09,299 [INFO] Fetching data for HONDA HR-V EX
-2023-05-04 03:57:10,151 [INFO] Unable to find data for HONDA HR-V EX
-2023-05-04 03:57:10,847 [INFO] Fetching data for HONDA HR-V EXL
-2023-05-04 03:57:11,772 [INFO] Unable to find data for HONDA HR-V EXL
-2023-05-04 03:57:12,594 [INFO] Fetching data for HONDA HR-V LX
-2023-05-04 03:57:13,381 [INFO] Unable to find data for HONDA HR-V LX
-2023-05-04 03:57:14,069 [INFO] Fetching data for HONDA ODYSSEY EX
-2023-05-04 03:57:15,089 [INFO] Unable to find data for HONDA ODYSSEY EX
-2023-05-04 03:57:15,754 [INFO] Fetching data for HONDA ODYSSEY LX
-2023-05-04 03:57:16,646 [INFO] Unable to find data for HONDA ODYSSEY LX
-2023-05-04 03:57:17,214 [INFO] Fetching data for HONDA ODYSSEY SE
-2023-05-04 03:57:18,031 [INFO] Unable to find data for HONDA ODYSSEY SE
-2023-05-04 03:57:18,703 [INFO] Fetching data for HONDA ODYSSEY TO
-2023-05-04 03:57:19,634 [INFO] Unable to find data for HONDA ODYSSEY TO
-2023-05-04 03:57:20,318 [INFO] Fetching data for HONDA PILOT EX
-2023-05-04 03:57:21,111 [INFO] Unable to find data for HONDA PILOT EX
-2023-05-04 03:57:21,762 [INFO] Fetching data for HONDA PILOT EXL
-2023-05-04 03:57:22,652 [INFO] Unable to find data for HONDA PILOT EXL
-2023-05-04 03:57:23,317 [INFO] Fetching data for HONDA PILOT LX
-2023-05-04 03:57:24,173 [INFO] Unable to find data for HONDA PILOT LX
-2023-05-04 03:57:24,864 [INFO] Fetching data for HONDA PILOT TOUR
-2023-05-04 03:57:25,962 [INFO] Unable to find data for HONDA PILOT TOUR
-2023-05-04 03:57:26,642 [INFO] Fetching data for LEXUS ES350
-2023-05-04 03:57:27,577 [INFO] Unable to find data for LEXUS ES350
-2023-05-04 03:57:28,258 [INFO] Fetching data for LEXUS GS200
-2023-05-04 03:57:29,110 [INFO] Unable to find data for LEXUS GS200
-2023-05-04 03:57:29,813 [INFO] Fetching data for LEXUS GX
-2023-05-04 03:57:48,714 [INFO] All pages viewed
-2023-05-04 03:57:49,413 [INFO] Fetching data for LEXUS IS
-2023-05-04 03:58:06,111 [INFO] All pages viewed
-2023-05-04 03:58:06,782 [INFO] Fetching data for LEXUS LX 570
-2023-05-04 03:58:17,372 [INFO] All pages viewed
-2023-05-04 03:58:18,131 [INFO] Fetching data for LEXUS NX 200T
-2023-05-04 03:58:29,130 [INFO] All pages viewed
-2023-05-04 03:58:29,945 [INFO] Fetching data for LEXUS RX 350
-2023-05-04 03:58:45,654 [INFO] All pages viewed
-2023-05-04 03:58:46,331 [INFO] Fetching data for MAZDA 3
-2023-05-04 03:59:14,694 [INFO] StaleElementReference retrying !
-2023-05-04 03:59:33,213 [INFO] No results were found
-2023-05-04 03:59:33,904 [INFO] Fetching data for MAZDA 6
-2023-05-04 04:00:01,996 [INFO] StaleElementReference retrying !
-2023-05-04 04:00:30,787 [INFO] StaleElementReference retrying !
-2023-05-04 04:00:59,502 [INFO] StaleElementReference retrying !
-2023-05-04 04:01:28,002 [INFO] StaleElementReference retrying !
-2023-05-04 04:01:38,926 [INFO] No results were found
-2023-05-04 04:01:39,648 [INFO] Fetching data for MAZDA CX-5 GT
-2023-05-04 04:01:40,639 [INFO] Unable to find data for MAZDA CX-5 GT
-2023-05-04 04:01:41,295 [INFO] Fetching data for MAZDA CX-5 TOURI
-2023-05-04 04:01:42,196 [INFO] Unable to find data for MAZDA CX-5 TOURI
-2023-05-04 04:01:42,856 [INFO] Fetching data for MERCEDES-BENZ C CLASS
-2023-05-04 04:01:43,839 [INFO] Unable to find data for MERCEDES-BENZ C CLASS
-2023-05-04 04:01:44,603 [INFO] Fetching data for MERCEDES-BENZ E CLASS
-2023-05-04 04:01:45,429 [INFO] Unable to find data for MERCEDES-BENZ E CLASS
-2023-05-04 04:01:46,191 [INFO] Fetching data for MERCEDES-BENZ GLA 250
-2023-05-04 04:01:56,345 [INFO] All pages viewed
-2023-05-04 04:01:57,049 [INFO] Fetching data for MERCEDES-BENZ GLC 300
-2023-05-04 04:02:08,059 [INFO] All pages viewed
-2023-05-04 04:02:08,742 [INFO] Fetching data for MERCEDES-BENZ GLC 300 4M
-2023-05-04 04:02:09,735 [INFO] Unable to find data for MERCEDES-BENZ GLC 300 4M
-2023-05-04 04:02:10,613 [INFO] Fetching data for MERCEDES-BENZ GLE 350
-2023-05-04 04:02:28,909 [INFO] All pages viewed
-2023-05-04 04:02:29,751 [INFO] Fetching data for MERCEDES-BENZ GLE 350 4M
-2023-05-04 04:02:30,559 [INFO] Unable to find data for MERCEDES-BENZ GLE 350 4M
-2023-05-04 04:02:31,399 [INFO] Fetching data for MERCEDES-BENZ GLE COUPE
-2023-05-04 04:02:32,129 [INFO] Unable to find data for MERCEDES-BENZ GLE COUPE
-2023-05-04 04:02:32,963 [INFO] Fetching data for MERCEDES-BENZ GLS 450 4M
-2023-05-04 04:02:33,689 [INFO] Unable to find data for MERCEDES-BENZ GLS 450 4M
-2023-05-04 04:02:34,398 [INFO] Fetching data for MERCEDES-BENZ GLS 550 4M
-2023-05-04 04:02:35,096 [INFO] Unable to find data for MERCEDES-BENZ GLS 550 4M
-2023-05-04 04:02:35,930 [INFO] Fetching data for MERCEDES-BENZ S CLASS
-2023-05-04 04:02:36,731 [INFO] Unable to find data for MERCEDES-BENZ S CLASS
-2023-05-04 04:02:37,595 [INFO] Fetching data for MERCEDES-BENZ S MERCEDES
-2023-05-04 04:02:38,409 [INFO] Unable to find data for MERCEDES-BENZ S MERCEDES
-2023-05-04 04:02:39,278 [INFO] Fetching data for NISSAN 370Z
-2023-05-04 04:02:39,988 [INFO] Unable to find data for NISSAN 370Z
-2023-05-04 04:02:40,929 [INFO] Fetching data for NISSAN ALTIMA
-2023-05-04 04:03:01,731 [INFO] All pages viewed
-2023-05-04 04:03:02,506 [INFO] Fetching data for NISSAN FRONTIER S
-2023-05-04 04:03:03,282 [INFO] Unable to find data for NISSAN FRONTIER S
-2023-05-04 04:03:04,004 [INFO] Fetching data for NISSAN GTR
-2023-05-04 04:03:04,709 [INFO] Unable to find data for NISSAN GTR
-2023-05-04 04:03:05,445 [INFO] Fetching data for NISSAN JUKE S
-2023-05-04 04:03:06,153 [INFO] Unable to find data for NISSAN JUKE S
-2023-05-04 04:03:07,025 [INFO] Fetching data for NISSAN MAXIMA
-2023-05-04 04:03:12,598 [INFO] All pages viewed
-2023-05-04 04:03:13,339 [INFO] Fetching data for NISSAN MURANO S
-2023-05-04 04:03:14,086 [INFO] Unable to find data for NISSAN MURANO S
-2023-05-04 04:03:14,907 [INFO] Fetching data for NISSAN PATHFINDER
-2023-05-04 04:03:22,996 [INFO] All pages viewed
-2023-05-04 04:03:23,806 [INFO] Fetching data for NISSAN QUEST S
-2023-05-04 04:03:24,518 [INFO] Unable to find data for NISSAN QUEST S
-2023-05-04 04:03:25,406 [INFO] Fetching data for NISSAN ROGUE S
-2023-05-04 04:03:26,106 [INFO] Unable to find data for NISSAN ROGUE S
-2023-05-04 04:03:26,938 [INFO] Fetching data for NISSAN SENTRA
-2023-05-04 04:03:55,590 [INFO] StaleElementReference retrying !
-2023-05-04 04:04:05,415 [INFO] No results were found
-2023-05-04 04:04:06,197 [INFO] Fetching data for NISSAN VERSA
-2023-05-04 04:04:13,711 [INFO] All pages viewed
-2023-05-04 04:04:14,481 [INFO] Fetching data for PORSCHE 911
-2023-05-04 04:04:26,460 [INFO] No results were found
-2023-05-04 04:04:27,394 [INFO] Fetching data for PORSCHE CAYENNE
-2023-05-04 04:04:37,459 [INFO] All pages viewed
-2023-05-04 04:04:38,220 [INFO] Fetching data for PORSCHE PANAMERA
-2023-05-04 04:04:44,440 [INFO] All pages viewed
-2023-05-04 04:04:45,299 [INFO] Fetching data for TOYOTA 4RUNNER SR
-2023-05-04 04:04:46,000 [INFO] Unable to find data for TOYOTA 4RUNNER SR
-2023-05-04 04:04:46,853 [INFO] Fetching data for TOYOTA 86 BASE
-2023-05-04 04:04:47,562 [INFO] Unable to find data for TOYOTA 86 BASE
-2023-05-04 04:04:48,270 [INFO] Fetching data for TOYOTA AVALON
-2023-05-04 04:04:53,999 [INFO] All pages viewed
-2023-05-04 04:04:54,796 [INFO] Fetching data for TOYOTA CAMRY
-2023-05-04 04:05:23,585 [INFO] StaleElementReference retrying !
-2023-05-04 04:05:52,910 [INFO] StaleElementReference retrying !
-2023-05-04 04:06:22,735 [INFO] StaleElementReference retrying !
-2023-05-04 04:06:52,631 [INFO] StaleElementReference retrying !
-2023-05-04 04:07:22,906 [INFO] StaleElementReference retrying !
-2023-05-04 04:07:41,004 [ERROR] 'NoneType' object has no attribute 'tbody'
+2023-05-05 13:15:38,035 [INFO] ====== WebDriver manager ======
+2023-05-05 13:15:38,115 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-05 13:15:54,159 [INFO] Fetching data for ACURA TLX
+2023-05-05 13:16:02,490 [INFO] All pages viewed
+2023-05-05 13:16:16,971 [INFO] ====== WebDriver manager ======
+2023-05-05 13:16:17,058 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-05 13:16:24,866 [INFO] ====== WebDriver manager ======
+2023-05-05 13:16:24,950 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-05 13:16:52,557 [INFO] Fetching data for ACURA TLX
+2023-05-05 13:17:10,161 [INFO] All pages viewed
+2023-05-05 13:17:13,505 [INFO] Fetching data for ACURA ILX
+2023-05-05 13:17:20,561 [INFO] All pages viewed
+2023-05-05 13:17:21,289 [INFO] Fetching data for ACURA RDX
+2023-05-05 13:17:34,760 [INFO] All pages viewed
+2023-05-05 13:17:36,536 [INFO] Fetching data for ACURA RDX ADVANC
+2023-05-05 13:17:37,234 [INFO] Unable to find data for ACURA RDX ADVANC
+2023-05-05 13:17:38,938 [INFO] Fetching data for ACURA MDX
+2023-05-05 13:17:49,225 [INFO] All pages viewed
+2023-05-05 13:17:50,772 [INFO] Fetching data for AUDI A6
+2023-05-05 13:17:58,481 [INFO] All pages viewed
+2023-05-05 13:17:59,685 [INFO] Fetching data for AUDI A3
+2023-05-05 13:18:14,325 [INFO] No results were found
+2023-05-05 13:18:15,429 [INFO] Fetching data for AUDI Q3 PRESTIG
+2023-05-05 13:18:16,133 [INFO] Unable to find data for AUDI Q3 PRESTIG
+2023-05-05 13:18:17,999 [INFO] Fetching data for AUDI Q3 PREMIUM
+2023-05-05 13:18:18,697 [INFO] Unable to find data for AUDI Q3 PREMIUM
+2023-05-05 13:18:19,382 [INFO] Fetching data for AUDI Q7 PREMIUM
+2023-05-05 13:18:20,322 [INFO] Unable to find data for AUDI Q7 PREMIUM
+2023-05-05 13:18:21,017 [INFO] Fetching data for AUDI A4
+2023-05-05 13:18:24,057 [INFO] All pages viewed
+2023-05-05 13:18:24,799 [INFO] Fetching data for BMW 428 I
+2023-05-05 13:18:25,727 [INFO] Unable to find data for BMW 428 I
+2023-05-05 13:18:26,482 [INFO] Fetching data for BMW Z4
+2023-05-05 13:18:38,935 [INFO] No results were found
+2023-05-05 13:18:39,810 [INFO] Fetching data for BMW X5 SDRIVE3
+2023-05-05 13:18:40,762 [INFO] Unable to find data for BMW X5 SDRIVE3
+2023-05-05 13:18:41,521 [INFO] Fetching data for BMW 535 I
+2023-05-05 13:18:42,618 [INFO] Unable to find data for BMW 535 I
+2023-05-05 13:18:43,428 [INFO] Fetching data for BMW 6 SERIES
+2023-05-05 13:18:49,034 [INFO] All pages viewed
+2023-05-05 13:18:49,718 [INFO] Fetching data for BMW M6
+2023-05-05 13:19:02,338 [INFO] No results were found
+2023-05-05 13:19:03,224 [INFO] Fetching data for BMW 5 SERIES
+2023-05-05 13:19:40,238 [INFO] StaleElementReference retrying !
+2023-05-05 13:20:02,980 [INFO] No results were found
+2023-05-05 13:20:05,599 [INFO] Fetching data for BMW X3
+2023-05-05 13:20:17,841 [INFO] No results were found
+2023-05-05 13:20:19,437 [INFO] Fetching data for BMW X5 XDRIVE5
+2023-05-05 13:20:20,149 [INFO] Unable to find data for BMW X5 XDRIVE5
+2023-05-05 13:20:20,902 [INFO] Fetching data for BMW 3 SERIES
+2023-05-05 13:20:57,286 [INFO] StaleElementReference retrying !
+2023-05-05 13:21:17,722 [INFO] No results were found
+2023-05-05 13:21:21,860 [INFO] Fetching data for BMW X5 XDRIVE3
+2023-05-05 13:21:22,559 [INFO] Unable to find data for BMW X5 XDRIVE3
+2023-05-05 13:21:24,052 [INFO] Fetching data for BMW 550 I
+2023-05-05 13:21:24,742 [INFO] Unable to find data for BMW 550 I
+2023-05-05 13:21:25,413 [INFO] Fetching data for BMW 428 XI
+2023-05-05 13:21:26,141 [INFO] Unable to find data for BMW 428 XI
+2023-05-05 13:21:26,879 [INFO] Fetching data for BMW M4
+2023-05-05 13:21:31,412 [INFO] All pages viewed
+2023-05-05 13:21:32,114 [INFO] Fetching data for BMW X1 XDRIVE2
+2023-05-05 13:21:32,985 [INFO] Unable to find data for BMW X1 XDRIVE2
+2023-05-05 13:21:33,675 [INFO] Fetching data for BMW X6
+2023-05-05 13:22:00,926 [INFO] All pages viewed
+2023-05-05 13:22:01,934 [INFO] Fetching data for BMW 2 SERIES
+2023-05-05 13:22:06,914 [INFO] All pages viewed
+2023-05-05 13:22:07,682 [INFO] Fetching data for BMW 4 SERIES
+2023-05-05 13:22:35,882 [INFO] All pages viewed
+2023-05-05 13:22:36,889 [INFO] Fetching data for HONDA CR-V LX
+2023-05-05 13:22:37,582 [INFO] Unable to find data for HONDA CR-V LX
+2023-05-05 13:22:38,334 [INFO] Fetching data for HONDA CIVIC
+2023-05-05 13:22:54,225 [INFO] All pages viewed
+2023-05-05 13:22:55,140 [INFO] Fetching data for HONDA PILOT EXL
+2023-05-05 13:22:56,119 [INFO] Unable to find data for HONDA PILOT EXL
+2023-05-05 13:22:57,315 [INFO] Fetching data for HONDA CR-V EXL
+2023-05-05 13:22:58,138 [INFO] Unable to find data for HONDA CR-V EXL
+2023-05-05 13:22:59,319 [INFO] Fetching data for HONDA CIVIC LX
+2023-05-05 13:23:00,006 [INFO] Unable to find data for HONDA CIVIC LX
+2023-05-05 13:23:00,663 [INFO] Fetching data for HONDA HR-V EXL
+2023-05-05 13:23:01,629 [INFO] Unable to find data for HONDA HR-V EXL
+2023-05-05 13:23:02,425 [INFO] Fetching data for HONDA ACCORD SPO
+2023-05-05 13:23:03,363 [INFO] Unable to find data for HONDA ACCORD SPO
+2023-05-05 13:23:04,354 [INFO] Fetching data for HONDA CR-V EX
+2023-05-05 13:23:05,312 [INFO] Unable to find data for HONDA CR-V EX
+2023-05-05 13:23:06,614 [INFO] Fetching data for HONDA ODYSSEY SE
+2023-05-05 13:23:07,876 [INFO] Unable to find data for HONDA ODYSSEY SE
+2023-05-05 13:23:09,780 [INFO] Fetching data for HONDA ACCORD EXL
+2023-05-05 13:23:10,462 [INFO] Unable to find data for HONDA ACCORD EXL
+2023-05-05 13:23:11,292 [INFO] Fetching data for HONDA CR-V SE
+2023-05-05 13:23:12,115 [INFO] Unable to find data for HONDA CR-V SE
+2023-05-05 13:23:12,789 [INFO] Fetching data for HONDA ACCORD LX
+2023-05-05 13:23:13,737 [INFO] Unable to find data for HONDA ACCORD LX
+2023-05-05 13:23:14,888 [INFO] Fetching data for HONDA PILOT TOUR
+2023-05-05 13:23:15,634 [INFO] Unable to find data for HONDA PILOT TOUR
+2023-05-05 13:23:16,377 [INFO] Fetching data for HONDA ACCORD EX
+2023-05-05 13:23:17,362 [INFO] Unable to find data for HONDA ACCORD EX
+2023-05-05 13:23:18,206 [INFO] Fetching data for HONDA HR-V EX
+2023-05-05 13:23:18,990 [INFO] Unable to find data for HONDA HR-V EX
+2023-05-05 13:23:19,712 [INFO] Fetching data for HONDA ODYSSEY EX
+2023-05-05 13:23:20,469 [INFO] Unable to find data for HONDA ODYSSEY EX
+2023-05-05 13:23:21,276 [INFO] Fetching data for HONDA ODYSSEY LX
+2023-05-05 13:23:22,248 [INFO] Unable to find data for HONDA ODYSSEY LX
+2023-05-05 13:23:23,136 [INFO] Fetching data for HONDA CIVIC EXL
+2023-05-05 13:23:23,921 [INFO] Unable to find data for HONDA CIVIC EXL
+2023-05-05 13:23:25,107 [INFO] Fetching data for HONDA HR-V LX
+2023-05-05 13:23:25,904 [INFO] Unable to find data for HONDA HR-V LX
+2023-05-05 13:23:26,704 [INFO] Fetching data for HONDA ODYSSEY TO
+2023-05-05 13:23:27,598 [INFO] Unable to find data for HONDA ODYSSEY TO
+2023-05-05 13:23:28,303 [INFO] Fetching data for HONDA CR-V TOURI
+2023-05-05 13:23:29,243 [INFO] Unable to find data for HONDA CR-V TOURI
+2023-05-05 13:23:30,680 [INFO] Fetching data for HONDA PILOT EX
+2023-05-05 13:23:31,370 [INFO] Unable to find data for HONDA PILOT EX
+2023-05-05 13:23:32,231 [INFO] Fetching data for HONDA PILOT LX
+2023-05-05 13:23:33,175 [INFO] Unable to find data for HONDA PILOT LX
+2023-05-05 13:23:34,442 [INFO] Fetching data for HONDA ACCORD
+2023-05-05 13:24:27,501 [INFO] StaleElementReference retrying !
+2023-05-05 13:24:36,827 [INFO] No results were found
+2023-05-05 13:24:42,246 [INFO] Fetching data for LEXUS ES350
+2023-05-05 13:24:42,960 [INFO] Unable to find data for LEXUS ES350
+2023-05-05 13:24:44,038 [INFO] Fetching data for LEXUS NX 200T
+2023-05-05 13:25:49,598 [INFO] All pages viewed
+2023-05-05 13:26:20,035 [INFO] Fetching data for LEXUS IS
+2023-05-05 13:27:32,110 [INFO] All pages viewed
+2023-05-05 13:28:02,912 [INFO] Fetching data for LEXUS GX
+2023-05-05 13:28:40,010 [INFO] All pages viewed
+2023-05-05 13:28:54,342 [INFO] Fetching data for LEXUS RX 350
+2023-05-05 13:29:18,277 [INFO] All pages viewed
+2023-05-05 13:29:21,437 [INFO] Fetching data for LEXUS GS200
+2023-05-05 13:29:22,226 [INFO] Unable to find data for LEXUS GS200
+2023-05-05 13:29:23,100 [INFO] Fetching data for LEXUS LX 570
+2023-05-05 13:29:38,964 [INFO] All pages viewed
+2023-05-05 13:29:44,595 [INFO] Fetching data for MAZDA 3
+2023-05-05 13:30:48,008 [INFO] StaleElementReference retrying !
+2023-05-05 13:31:41,316 [INFO] No results were found
+2023-05-05 13:31:49,363 [INFO] Fetching data for MAZDA 6
+2023-05-05 13:33:16,758 [INFO] StaleElementReference retrying !
+2023-05-05 13:34:38,895 [INFO] StaleElementReference retrying !
+2023-05-05 13:35:46,534 [INFO] StaleElementReference retrying !
+2023-05-05 13:36:32,602 [INFO] StaleElementReference retrying !
+2023-05-05 13:36:46,502 [INFO] No results were found
+2023-05-05 13:36:48,766 [INFO] Fetching data for MAZDA CX-5 TOURI
+2023-05-05 13:36:49,463 [INFO] Unable to find data for MAZDA CX-5 TOURI
+2023-05-05 13:36:50,339 [INFO] Fetching data for MAZDA CX-5 GT
+2023-05-05 13:36:51,021 [INFO] Unable to find data for MAZDA CX-5 GT
+2023-05-05 13:36:51,668 [INFO] Fetching data for MERCEDES-BENZ S CLASS
+2023-05-05 13:36:52,366 [INFO] Unable to find data for MERCEDES-BENZ S CLASS
+2023-05-05 13:36:53,124 [INFO] Fetching data for MERCEDES-BENZ S MERCEDES
+2023-05-05 13:36:53,845 [INFO] Unable to find data for MERCEDES-BENZ S MERCEDES
+2023-05-05 13:36:54,573 [INFO] Fetching data for MERCEDES-BENZ C CLASS
+2023-05-05 13:36:55,299 [INFO] Unable to find data for MERCEDES-BENZ C CLASS
+2023-05-05 13:36:56,130 [INFO] Fetching data for MERCEDES-BENZ GLC 300 4M
+2023-05-05 13:36:56,854 [INFO] Unable to find data for MERCEDES-BENZ GLC 300 4M
+2023-05-05 13:36:57,643 [INFO] Fetching data for MERCEDES-BENZ GLE 350 4M
+2023-05-05 13:36:58,393 [INFO] Unable to find data for MERCEDES-BENZ GLE 350 4M
+2023-05-05 13:36:59,460 [INFO] Fetching data for MERCEDES-BENZ GLC 300
+2023-05-05 13:37:11,798 [INFO] All pages viewed
+2023-05-05 13:37:12,595 [INFO] Fetching data for MERCEDES-BENZ GLE 350
+2023-05-05 13:37:35,600 [INFO] All pages viewed
+2023-05-05 13:37:36,483 [INFO] Fetching data for MERCEDES-BENZ GLE COUPE
+2023-05-05 13:37:37,197 [INFO] Unable to find data for MERCEDES-BENZ GLE COUPE
+2023-05-05 13:37:37,888 [INFO] Fetching data for MERCEDES-BENZ E CLASS
+2023-05-05 13:37:38,630 [INFO] Unable to find data for MERCEDES-BENZ E CLASS
+2023-05-05 13:37:39,693 [INFO] Fetching data for MERCEDES-BENZ GLA 250
+2023-05-05 13:37:50,463 [INFO] All pages viewed
+2023-05-05 13:37:51,174 [INFO] Fetching data for MERCEDES-BENZ GLS 450 4M
+2023-05-05 13:37:51,978 [INFO] Unable to find data for MERCEDES-BENZ GLS 450 4M
+2023-05-05 13:37:52,856 [INFO] Fetching data for MERCEDES-BENZ GLS 550 4M
+2023-05-05 13:37:53,659 [INFO] Unable to find data for MERCEDES-BENZ GLS 550 4M
+2023-05-05 13:37:54,437 [INFO] Fetching data for NISSAN ALTIMA
+2023-05-05 13:38:18,807 [INFO] All pages viewed
+2023-05-05 13:38:19,678 [INFO] Fetching data for NISSAN MAXIMA
+2023-05-05 13:38:25,890 [INFO] All pages viewed
+2023-05-05 13:38:26,674 [INFO] Fetching data for NISSAN SENTRA
+2023-05-05 13:39:02,237 [INFO] StaleElementReference retrying !
+2023-05-05 13:39:13,381 [INFO] No results were found
+2023-05-05 13:39:14,367 [INFO] Fetching data for NISSAN VERSA
+2023-05-05 13:39:22,031 [INFO] All pages viewed
+2023-05-05 13:39:22,847 [INFO] Fetching data for NISSAN JUKE S
+2023-05-05 13:39:23,569 [INFO] Unable to find data for NISSAN JUKE S
+2023-05-05 13:39:24,305 [INFO] Fetching data for NISSAN MURANO S
+2023-05-05 13:39:25,011 [INFO] Unable to find data for NISSAN MURANO S
+2023-05-05 13:39:25,705 [INFO] Fetching data for NISSAN ROGUE S
+2023-05-05 13:39:26,419 [INFO] Unable to find data for NISSAN ROGUE S
+2023-05-05 13:39:27,190 [INFO] Fetching data for NISSAN PATHFINDER
+2023-05-05 13:39:35,351 [INFO] All pages viewed
+2023-05-05 13:39:36,055 [INFO] Fetching data for NISSAN FRONTIER S
+2023-05-05 13:39:36,839 [INFO] Unable to find data for NISSAN FRONTIER S
+2023-05-05 13:39:37,567 [INFO] Fetching data for NISSAN QUEST S
+2023-05-05 13:39:38,345 [INFO] Unable to find data for NISSAN QUEST S
+2023-05-05 13:39:39,152 [INFO] Fetching data for NISSAN 370Z
+2023-05-05 13:39:39,861 [INFO] Unable to find data for NISSAN 370Z
+2023-05-05 13:39:40,550 [INFO] Fetching data for NISSAN GTR
+2023-05-05 13:39:41,348 [INFO] Unable to find data for NISSAN GTR
+2023-05-05 13:39:42,049 [INFO] Fetching data for PORSCHE CAYENNE
+2023-05-05 13:39:52,432 [INFO] All pages viewed
+2023-05-05 13:39:53,159 [INFO] Fetching data for PORSCHE 911
+2023-05-05 13:40:05,011 [INFO] No results were found
+2023-05-05 13:40:06,003 [INFO] Fetching data for PORSCHE PANAMERA
+2023-05-05 13:40:13,173 [INFO] All pages viewed
+2023-05-05 13:40:13,923 [INFO] Fetching data for TOYOTA COROLLA
+2023-05-05 13:40:53,250 [INFO] All pages viewed
+2023-05-05 13:40:55,666 [INFO] Fetching data for TOYOTA CAMRY
+2023-05-05 13:41:28,711 [INFO] StaleElementReference retrying !
+2023-05-05 13:42:03,810 [INFO] StaleElementReference retrying !
+2023-05-05 13:42:38,353 [INFO] StaleElementReference retrying !
+2023-05-05 13:43:10,377 [INFO] StaleElementReference retrying !
+2023-05-05 13:43:44,310 [INFO] StaleElementReference retrying !
+2023-05-05 13:44:16,242 [INFO] StaleElementReference retrying !
+2023-05-05 13:44:49,502 [INFO] StaleElementReference retrying !
+2023-05-05 13:45:08,229 [INFO] No results were found
+2023-05-05 13:45:09,056 [INFO] Fetching data for TOYOTA SCION
+2023-05-05 13:45:09,803 [INFO] Unable to find data for TOYOTA SCION
+2023-05-05 13:45:10,741 [INFO] Fetching data for TOYOTA SIENNA XLE
+2023-05-05 13:45:11,456 [INFO] Unable to find data for TOYOTA SIENNA XLE
+2023-05-05 13:45:12,066 [INFO] Fetching data for TOYOTA 4RUNNER SR
+2023-05-05 13:45:12,770 [INFO] Unable to find data for TOYOTA 4RUNNER SR
+2023-05-05 13:45:13,470 [INFO] Fetching data for TOYOTA RAV4 LIMIT
+2023-05-05 13:45:14,696 [INFO] Unable to find data for TOYOTA RAV4 LIMIT
+2023-05-05 13:45:15,427 [INFO] Fetching data for TOYOTA HIGHLANDER
+2023-05-05 13:45:22,431 [INFO] All pages viewed
+2023-05-05 13:45:23,126 [INFO] Fetching data for TOYOTA RAV4 LE
+2023-05-05 13:45:23,828 [INFO] Unable to find data for TOYOTA RAV4 LE
+2023-05-05 13:45:24,571 [INFO] Fetching data for TOYOTA SIENNA LE
+2023-05-05 13:45:25,279 [INFO] Unable to find data for TOYOTA SIENNA LE
+2023-05-05 13:45:26,135 [INFO] Fetching data for TOYOTA SIENNA SE
+2023-05-05 13:45:26,822 [INFO] Unable to find data for TOYOTA SIENNA SE
+2023-05-05 13:45:27,640 [INFO] Fetching data for TOYOTA RAV4 XLE
+2023-05-05 13:45:28,388 [INFO] Unable to find data for TOYOTA RAV4 XLE
+2023-05-05 13:45:29,146 [INFO] Fetching data for TOYOTA AVALON
+2023-05-05 13:45:35,810 [INFO] All pages viewed
+2023-05-05 13:45:36,684 [INFO] Fetching data for TOYOTA RAV4 SE
+2023-05-05 13:45:37,469 [INFO] Unable to find data for TOYOTA RAV4 SE
+2023-05-05 13:45:38,192 [INFO] Fetching data for TOYOTA 86 BASE
+2023-05-05 13:45:38,959 [INFO] Unable to find data for TOYOTA 86 BASE
+2023-05-05 13:45:39,627 [INFO] Fetching data for TOYOTA TACOMA ACC
+2023-05-05 13:45:40,342 [INFO] Unable to find data for TOYOTA TACOMA ACC
+2023-05-05 13:45:41,048 [INFO] Fetching data for TOYOTA YARIS
+2023-05-05 13:45:45,039 [INFO] All pages viewed
+2023-05-05 13:45:45,895 [INFO] Fetching data for VOLKSWAGEN JETTA
+2023-05-05 13:46:15,961 [INFO] All pages viewed
+2023-05-05 13:46:16,787 [INFO] Fetching data for VOLKSWAGEN TIGUAN S
+2023-05-05 13:46:17,490 [INFO] Unable to find data for VOLKSWAGEN TIGUAN S
+2023-05-05 13:46:18,140 [INFO] Fetching data for VOLKSWAGEN PASSAT
+2023-05-05 13:46:45,478 [INFO] All pages viewed
+2023-05-05 13:46:46,174 [INFO] Fetching data for VOLKSWAGEN TIGUAN COM
+2023-05-05 13:46:46,895 [INFO] Unable to find data for VOLKSWAGEN TIGUAN COM
+2023-05-05 13:46:47,683 [INFO] Fetching data for VOLKSWAGEN TIGUAN WOL
+2023-05-05 13:46:48,394 [INFO] Unable to find data for VOLKSWAGEN TIGUAN WOL
+2023-05-06 01:02:59,642 [INFO] ====== WebDriver manager ======
+2023-05-06 01:02:59,725 [INFO] Get LATEST chromedriver version for google-chrome
+2023-05-06 01:02:59,960 [INFO] About to download new driver from https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_mac_arm64.zip
+2023-05-06 01:03:00,908 [INFO] Driver has been saved in cache [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49]
+2023-05-06 01:03:23,891 [INFO] ====== WebDriver manager ======
+2023-05-06 01:03:23,971 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:03:38,120 [INFO] ====== WebDriver manager ======
+2023-05-06 01:03:38,198 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:03:51,604 [INFO] ====== WebDriver manager ======
+2023-05-06 01:03:51,679 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:04:26,984 [INFO] ====== WebDriver manager ======
+2023-05-06 01:04:27,064 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:25:04,057 [INFO] ====== WebDriver manager ======
+2023-05-06 01:25:04,143 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:25:48,364 [INFO] ====== WebDriver manager ======
+2023-05-06 01:25:48,449 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:26:56,440 [INFO] ====== WebDriver manager ======
+2023-05-06 01:26:56,519 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:27:26,725 [INFO] ====== WebDriver manager ======
+2023-05-06 01:27:26,810 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:27:48,246 [INFO] ====== WebDriver manager ======
+2023-05-06 01:27:48,333 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:27:58,951 [INFO] ====== WebDriver manager ======
+2023-05-06 01:27:59,035 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:30:41,409 [INFO] ====== WebDriver manager ======
+2023-05-06 01:30:41,504 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:31:53,199 [INFO] ====== WebDriver manager ======
+2023-05-06 01:31:53,285 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:33:06,662 [INFO] ====== WebDriver manager ======
+2023-05-06 01:33:06,746 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:38:50,167 [INFO] ====== WebDriver manager ======
+2023-05-06 01:38:50,258 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:47:55,189 [INFO] ====== WebDriver manager ======
+2023-05-06 01:47:55,277 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:48:43,962 [INFO] ====== WebDriver manager ======
+2023-05-06 01:48:44,043 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:48:54,954 [INFO] ====== WebDriver manager ======
+2023-05-06 01:48:55,040 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:50:19,220 [INFO] ====== WebDriver manager ======
+2023-05-06 01:50:19,314 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:50:40,375 [INFO] ====== WebDriver manager ======
+2023-05-06 01:50:40,462 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:53:18,551 [INFO] ====== WebDriver manager ======
+2023-05-06 01:53:18,634 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:54:09,752 [INFO] ====== WebDriver manager ======
+2023-05-06 01:54:09,834 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:58:55,367 [INFO] ====== WebDriver manager ======
+2023-05-06 01:58:55,468 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 01:59:30,529 [INFO] ====== WebDriver manager ======
+2023-05-06 01:59:30,630 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:01:00,250 [INFO] ====== WebDriver manager ======
+2023-05-06 02:01:00,330 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:02:09,164 [INFO] ====== WebDriver manager ======
+2023-05-06 02:02:09,242 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:05:32,378 [INFO] ====== WebDriver manager ======
+2023-05-06 02:05:32,466 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:07:50,782 [INFO] ====== WebDriver manager ======
+2023-05-06 02:07:50,897 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:10:24,858 [INFO] ====== WebDriver manager ======
+2023-05-06 02:10:24,947 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:13:02,211 [INFO] ====== WebDriver manager ======
+2023-05-06 02:13:02,295 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:13:46,190 [INFO] ====== WebDriver manager ======
+2023-05-06 02:13:46,266 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:16:05,415 [INFO] ====== WebDriver manager ======
+2023-05-06 02:16:05,496 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:19:49,523 [INFO] ====== WebDriver manager ======
+2023-05-06 02:19:49,609 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:20:20,868 [INFO] ====== WebDriver manager ======
+2023-05-06 02:20:20,946 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:20:50,953 [INFO] ====== WebDriver manager ======
+2023-05-06 02:20:51,036 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:21:41,553 [INFO] ====== WebDriver manager ======
+2023-05-06 02:21:41,642 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:22:37,230 [INFO] ====== WebDriver manager ======
+2023-05-06 02:22:37,314 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 02:23:54,954 [INFO] ====== WebDriver manager ======
+2023-05-06 02:23:55,039 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:18:32,409 [INFO] ====== WebDriver manager ======
+2023-05-06 03:18:32,499 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:19:18,509 [INFO] ====== WebDriver manager ======
+2023-05-06 03:19:18,593 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:22:41,321 [INFO] ====== WebDriver manager ======
+2023-05-06 03:22:41,404 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:30:50,655 [INFO] ====== WebDriver manager ======
+2023-05-06 03:30:50,757 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:32:12,750 [INFO] ====== WebDriver manager ======
+2023-05-06 03:32:12,842 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:34:08,795 [INFO] ====== WebDriver manager ======
+2023-05-06 03:34:08,879 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:34:38,993 [INFO] ====== WebDriver manager ======
+2023-05-06 03:34:39,079 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-06 03:37:10,199 [INFO] ====== WebDriver manager ======
+2023-05-06 03:37:10,284 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-07 03:50:48,270 [INFO] ====== WebDriver manager ======
+2023-05-07 03:50:48,361 [INFO] Get LATEST chromedriver version for google-chrome
+2023-05-07 03:50:48,524 [INFO] About to download new driver from https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_mac_arm64.zip
+2023-05-07 03:50:49,166 [INFO] Driver has been saved in cache [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49]
+2023-05-07 03:52:00,658 [INFO] ====== WebDriver manager ======
+2023-05-07 03:52:00,755 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-07 13:08:54,934 [INFO] ====== WebDriver manager ======
+2023-05-07 13:08:55,020 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-07 13:44:27,349 [INFO] ====== WebDriver manager ======
+2023-05-07 13:44:27,437 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-07 13:45:01,088 [INFO] ====== WebDriver manager ======
+2023-05-07 13:45:01,177 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
