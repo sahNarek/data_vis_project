@@ -44,5 +44,5 @@ us_cars$ShippingCost <- 3000
 write.csv(us_cars, file = "./data/us_cars.csv")
 write.csv(us_cars, file = "./data/us_cars.rda")
 
-write.csv(am_cars, file = "./data/us_cars.csv")
+write.csv(am_cars, file = "./data/am_cars.rda")
 save(am_cars, file = "data/am_cars.rda")
