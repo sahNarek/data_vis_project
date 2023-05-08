@@ -11,8 +11,137 @@ output:
 
 # Introduction
 
-Intro text
+The car auction market has become a significant part of the global automotive industry, with billions of dollars' worth of cars sold every year. In recent years, there has been a growing interest in using data visualization techniques to analyze and interpret large datasets related to the car auction market.
 
-# Eda
+In this paper, we aim to test several hypotheses related to the car auction market using data visualization techniques.
 
-eda text
+To accomplish our goals, we will use a dataset that contains information on the prices, models, mileage, engine volume, damage type, and fuel type of cars sold in various car auctions around the world. We will use different data visualization techniques, including histograms, box plots, scatter plots, and bar charts, to compare and contrast data from different countries and analyze the relationships between variables.
+
+We will first investigate whether damaged cars are more profitable to resell in Armenia than undamaged ones by comparing the prices of damaged and undamaged cars in the dataset. Next, we will examine the repair costs of Japanese and German cars in different countries to determine if there is a significant difference in repair expenses. Then, we will explore the impact of car color, mileage, and damage type on its price using regression models and scatter plots.
+
+Finally, we will investigate whether most cars with less engine volume have petrol as a fuel type, by analyzing the distribution of engine volume and fuel type across different car models.
+
+Overall, our study will demonstrate the importance of data visualization in analyzing the car auction market and provide valuable insights into the industry. By using a combination of data visualization techniques, we hope to gain a comprehensive understanding of the dataset and offer new insights into the car auction market.
+
+
+# Datasets
+
+This study uses two datasets that were scraped from car auction websites in the United States and Armenia. The US dataset includes information on 749 cars sold in various auctions across the country, while the Armenian dataset includes data on 1407 cars sold in different auctions in Armenia.
+
+Both datasets contain information on the car's make and model, year of manufacture, mileage, engine volume, damage type, and fuel type, as well as the sale price at the auction. The data was cleaned and preprocessed to remove any inconsistencies or errors and to estimate the importing price of each car, which takes into account taxes, customs duties, and other expenses related to importing a car into a particular country.
+
+
+# Hypotheses 
+
+```{r, echo = F}
+# Initial setup for R
+library(ggplot2)
+library(gridExtra)
+
+# Loading datasets
+load(file='./data/am_cars.rda')
+load(file='./data/us_cars.rda')
+levels(am_cars$Color)[match("Օthercolor",levels(am_cars$Color))] <- "Other Color"
+```
+
+## Heavily damaged cars are more profitable to resell in Armenia.
+```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+
+
+```
+
+## Japanesse cars are cheaper to repair compared to German cars in Armenia.
+```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+
+german_car_names <- c("AUDI", "BMW", "MERCEDES-BENZ", "PORSCHE", "VOLKSWAGEN")
+
+german_cars <- us_cars[us_cars$Make %in% german_car_names, ]
+japanesse_cars <- us_cars[!(us_cars$Make %in% german_car_names), ]
+
+
+ggplot(german_cars, aes(x = Repair.cost)) + 
+  geom_density(fill = "lightblue") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Distribution of repair costs for German cars") +
+  labs(x = "Repair cost", y = "Density")
+
+ggplot(japanesse_cars, aes(x = Repair.cost)) + 
+  geom_density(fill = "lightblue") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Distribution of repair costs for Japanesse cars") +
+  labs(x = "Repair cost", y = "Density")
+
+```
+
+## Color, Mileage and damage type have a lot of impact on the cars price.
+
+```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+
+# Color
+
+# For Armenia
+ggplot(am_cars, aes(x = Color, y = Price)) + 
+  geom_boxplot(fill = "lightblue") + 
+  ylim(c(0, 120000)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Prices of the cars by color in Armenia") +
+  labs(x = "Color", y = "Price")
+
+# For the US
+ggplot(us_cars, aes(x = Color, y = Est..Retail.Value)) + 
+  geom_boxplot(fill = "lightblue") + 
+  ylim(c(0, 120000)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Prices of the cars by color in US") +
+  labs(x = "Color", y = "Price")
+
+
+# Damage type and the Price
+ggplot(us_cars, aes(x = Damage.Description, y = Price)) + 
+  geom_violin(fill = "lightblue") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Prices of the cars by damage type in the US") +
+  labs(x = "Damage type", y = "Price")
+
+
+# Milage and the Price
+# For US
+ggplot(us_cars, aes(x = Odometer, y = Price)) + 
+  geom_point(alpha = 0.3, color = "darkblue") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Prices of the cars by milage in the US") +
+  labs(x = "Milage", y = "Price")
+
+# For the Armenia
+ggplot(am_cars, aes(x = Mileage, y = Price)) + 
+  geom_point(alpha = 0.3, color = "darkblue") + 
+  xlim(c(0, 200000)) + 
+  ylim(c(0, 250000)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Prices of the cars by mileage in Armenia") +
+  labs(x = "Milage", y = "Price")
+
+```
+
+## The popular cars in US and Armenia are quite different
+```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+
+# For US
+ggplot(us_cars, aes(x = Make)) + 
+  geom_bar(fill = "red") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Popular cars in US") +
+  labs(x = "Car Model", y = "Count")
+
+# For Armenia
+ggplot(am_cars, aes(x = Make)) + 
+  geom_bar(fill = "red") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Popular cars in Armenia") +
+  labs(x = "Car Model", y = "Count")
+
+```
+
+# Conclusion
+
+
