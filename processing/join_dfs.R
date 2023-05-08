@@ -1,28 +1,48 @@
 library(dplyr)
 
-load("data/cars_armenia.rda")
-us_cars <- read.csv("data/filtered_with_import.csv")
+load("./data/cars_armenia.rda")
+us_cars <- read.csv("./data/filtered_with_import.csv")
 
-cars_armenia <- cars_armenia %>%
+am_cars <- cars_armenia
+
+am_cars <- am_cars %>%
   select(c(OfferId,Make,Model,Name,ProductionYear,Color,Engine,Gearbox,BodyStyle,Mileage,Price))
 
 us_cars <- us_cars %>%
   select(-c(Unnamed..0))
 
-cars_armenia$ProductionYear <- as.integer(cars_armenia$ProductionYear)
+tax_calculator <- function(price, volume){
+  total_price_eu <- ((price * 1.20) * 0.9) + 3000
+  engine_tax <- as.numeric(volume) * 440
+  price_tax <- total_price_eu * 0.20
+  duty_tax <- pmax(engine_tax, price_tax)
+  vat <- (total_price_eu + duty_tax) * 0.2
+  env_tax <- total_price_eu * 0.02
+  overall_tax <- (duty_tax + env_tax + vat)
+  return(as.integer(overall_tax))
+}
 
 
-cars_us_am <- left_join(us_cars, cars_armenia, by = join_by(x$Make == y$Make, 
-                                                             x$Model.Group == y$Model, 
-                                                             x$Year == y$ProductionYear))
+us_cars$ImportPrice <- tax_calculator(us_cars$Price, us_cars$Engine)
+us_cars$ShippingCost <- 3000
 
-cars_us_am <- cars_us_am %>%
-  na.omit()
+# am_cars$ProductionYear <- as.integer(am_cars$ProductionYear)
+# 
+# 
+# cars_us_am <- left_join(us_cars, am_cars, by = join_by(x$Make == y$Make, 
+#                                                              x$Model.Group == y$Model, 
+#                                                              x$Year == y$ProductionYear))
+# 
+# cars_us_am <- cars_us_am %>%
+#   na.omit()
+# 
+# cars_us_am$ShippingCost <- 3000
 
-cars_us_am$ShippingCost <- 3000
+# cars_us_am <- cars_us_am %>%
+#   filter((Price.x * 1.15 + ImportPrice + ShippingCost) < Price.y)
 
-cars_us_am <- cars_us_am %>%
-  filter((Price.x * 1.15 + ImportPrice + ShippingCost) < Price.y)
+write.csv(us_cars, file = "./data/us_cars.csv")
+write.csv(us_cars, file = "./data/us_cars.rda")
 
-write.csv(cars_us_am,file="data/profitable_cars_us_am.csv")
-save(cars_us_am, file = "data/profitable_cars_us_am.rda")
+write.csv(am_cars, file = "./data/us_cars.csv")
+save(am_cars, file = "data/am_cars.rda")

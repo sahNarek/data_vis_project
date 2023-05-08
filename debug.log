@@ -352,3 +352,9 @@
 2023-05-07 13:44:27,437 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
 2023-05-07 13:45:01,088 [INFO] ====== WebDriver manager ======
 2023-05-07 13:45:01,177 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache
+2023-05-08 16:10:59,321 [INFO] ====== WebDriver manager ======
+2023-05-08 16:10:59,412 [INFO] Get LATEST chromedriver version for google-chrome
+2023-05-08 16:10:59,665 [INFO] About to download new driver from https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_mac_arm64.zip
+2023-05-08 16:11:00,311 [INFO] Driver has been saved in cache [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49]
+2023-05-08 16:12:58,315 [INFO] ====== WebDriver manager ======
+2023-05-08 16:12:58,401 [INFO] Driver [/Users/nsahakyan/.wdm/drivers/chromedriver/mac_arm64/112.0.5615.49/chromedriver] found in cache

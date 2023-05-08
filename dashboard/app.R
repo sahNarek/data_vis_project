@@ -68,9 +68,7 @@ ui <- fluidPage(
                              "Wear" = "Wear",
                              "All Over" = "ALL OVER",
                              "Rollover" = "ROLLOVER",
-                             "Mechanical" = "Mechanical",
-                             "Vandalism" = "Vandalism",
-                             "Stripped" = "STRIPPED")),
+                             "Mechanical" = "Mechanical")),
                
                sliderInput("year", label = h3("Year"), min = min(cars_us_am$Year), 
                            max = max(cars_us_am$Year), value = min(cars_us_am$Year), step = 1)

@@ -83,6 +83,7 @@ class TaxCalculator:
                 tax_price = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.ID, price_id))).get_attribute("textContent")
                 tax_price = int(int(tax_price.replace(",",""))/390)
                 df.loc[index, 'ImportPrice'] = tax_price
+                time.sleep(10)
                 df.loc[[index], ].to_csv("filtered_with_import.csv",header = not os.path.exists("filtered_with_import.csv"), index = False, mode = "a")
         except Exception as e:
             print(str(e))
