@@ -37,6 +37,64 @@ us_cat_cols <- us_cat_cols[!(us_cat_cols %in% c("VIN","Model.Group", "Model.Deta
 
 am_cat_cols <- am_columns[sapply(am_cars, is.factor)]
 
+
+plot_price_distributions <- function(selectedModel) {
+  if (selectedModel == "ALL") {
+    result_plot <- ggplot(us_cars, aes(Price, fill = Make, colour = Make)) + 
+      geom_density(alpha = 0.3) +
+      labs(x = "Price in dollars", y = "Density") +
+      ggtitle("Distribution of the us_cars by price")
+    return (result_plot)
+  }
+  
+  result_plot <- ggplot(us_cars[us_cars$Make == selectedModel, ], aes(Price)) + 
+    geom_density(color="darkblue", fill="lightblue", alpha = 0.3) +
+    labs(x = "Price in dollars", y = "Density") +
+    ggtitle("Distribution of the selected model by price")
+  return (result_plot)
+}
+
+plot_odometer_vs_price <- function(selectedModel) {
+  if (selectedModel == "ALL") {
+    result_plot <- ggplot(us_cars, aes(x = Price, y = Odometer, fill = Make, colour = Make)) + 
+      geom_point(alpha = 0.3) +
+      labs(x = "Price in Dollars", y = "Odometer") +
+      ggtitle("Price VS Odometer")
+    
+    return (result_plot)
+  }
+  
+  result_plot <- ggplot(us_cars[us_cars$Make == selectedModel, ], aes(x = Price, y = Odometer)) +
+    geom_point(color="darkblue", fill="lightblue", alpha = 0.3) +
+    labs(x = "Price in Dollars", y = "Odometer") +
+    ggtitle("Price VS Odometer")
+  
+  return (result_plot)
+}
+
+plot_cost_by_damage <- function(selectedDamageType) {
+  if (selectedDamageType == "All") {
+    cars_clean <- us_cars %>% filter(Damage.Description != "DAMAGE HISTORY")
+    result_plot <- ggplot(cars_clean, aes(y = Repair.cost, x = Damage.Description)) +
+      geom_boxplot(fill = "lightblue") + 
+      labs(x = "Damage Type", y = "Repair Cost") +
+      ggtitle("Damage type and Repair Cost") +
+      theme(axis.text.x=element_text(angle=90))
+    
+    return (result_plot)
+  }
+  
+  result_plot <- ggplot(us_cars[us_cars$Damage.Description == selectedDamageType, ], aes(y = Repair.cost)) +
+    geom_boxplot(fill = "lightblue") + 
+    labs(x = "Damage Type", y = "Repair Cost") +
+    ggtitle("Damage type and Repair Cost") + 
+    theme(axis.text.x=element_text(angle=90))
+  
+  return (result_plot)
+  
+}
+
+
 ui <- fluidPage(
   titlePanel("Cars Auction Visualizations"),
   tabsetPanel(
@@ -56,9 +114,8 @@ ui <- fluidPage(
                  conditionalPanel(
                    condition = "input.dataframe == 'Cars from auto.am'",
                    selectInput("fill_cars_am", "Select a categorical variable for filling", c("None",am_cat_cols), selected = "Make")
-                   # selectInput("x_cars_am", "Select variable for X (AM)", am_numeric_cols, s),
-                   # selectInput("y_cars_am", "Select variable for Y (AM)", am_numeric_cols)
                  ),
+                 sliderInput("opacity", "Opacity", min = 0, max = 1, value = 0.5, step = 0.1)
                ),
                mainPanel(
                  plotlyOutput("plot")
@@ -149,7 +206,8 @@ server <- function(input, output) {
       plot_ly(df, x = x, y = y, type = "scatter", mode = "markers")
     } 
     else {
-      plot_ly(df, x = x, y = y, color = group, type = "scatter", mode = "markers")
+      plot_ly(df, x = x, y = y, color = group, type = "scatter",
+              mode = "markers", opacity = input$opacity)
     }
   })
   
