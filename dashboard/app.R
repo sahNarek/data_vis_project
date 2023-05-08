@@ -12,14 +12,16 @@ library(ggplot2)
 library(plotly)
 library(dplyr)
 
-load("./data/us_cars.rda")
-load("./data/am_cars.rda")
+load("../data/us_cars.rda")
+load("../data/am_cars.rda")
 
 addPlotRow <- function(plotName1, plotName2) {
   return (fluidRow(splitLayout(cellWidths = c("50%", "50%"), plotlyOutput(plotName1),
                 plotlyOutput(plotName2))
   ))
 }
+
+us_cars$Engine <- as.factor(us_cars$Engine)
 
 us_columns <- colnames(us_cars)
 am_columns <- colnames(am_cars)
@@ -29,6 +31,8 @@ us_numeric_cols <- us_numeric_cols[!(us_numeric_cols %in% c("Year","VIN"))]
 am_numeric_cols <- am_numeric_cols[!(am_numeric_cols %in% c("OfferId"))]
 
 us_cat_cols <- us_columns[sapply(us_cars, is.character)]
+us_factor_cols <- us_columns[sapply(us_cars, is.factor)]
+us_cat_cols <- c(us_cat_cols, us_factor_cols)
 us_cat_cols <- us_cat_cols[!(us_cat_cols %in% c("VIN","Model.Group", "Model.Detail"))]
 
 am_cat_cols <- am_columns[sapply(am_cars, is.factor)]
@@ -40,18 +44,18 @@ ui <- fluidPage(
              sidebarLayout(
                sidebarPanel(
                  selectInput("dataframe", "Select Dataframe:", 
-                             c("Cars from Copart","Cars from cars.am"),
+                             c("Cars from Copart","Cars from auto.am"),
                              selected = "Cars from Copart"
                              ),
                  conditionalPanel(
                    condition = "input.dataframe == 'Cars from Copart'",
-                   selectInput("x_copart", "Select variable for X", us_numeric_cols, selected = "Odometer"),
-                   selectInput("y_copart", "Select variable for Y", us_numeric_cols, selected = "Price"),
-                   selectInput("fill_copart", "Select categorical variable for filling", c("None",us_cat_cols), selected = "Make")
+                   selectInput("x_copart", "Select a variable for X", us_numeric_cols, selected = "Odometer"),
+                   selectInput("y_copart", "Select a variable for Y", us_numeric_cols, selected = "Price"),
+                   selectInput("fill_copart", "Select a categorical variable for filling", c("None",us_cat_cols), selected = "Make")
                  ),
                  conditionalPanel(
-                   condition = "input.dataframe == 'Cars from cars.am'",
-                   selectInput("fill_cars_am", "Select categorical variable for filling", c("None",am_cat_cols), selected = "Make")
+                   condition = "input.dataframe == 'Cars from auto.am'",
+                   selectInput("fill_cars_am", "Select a categorical variable for filling", c("None",am_cat_cols), selected = "Make")
                    # selectInput("x_cars_am", "Select variable for X (AM)", am_numeric_cols, s),
                    # selectInput("y_cars_am", "Select variable for Y (AM)", am_numeric_cols)
                  ),
@@ -60,7 +64,28 @@ ui <- fluidPage(
                  plotlyOutput("plot")
                )
              )),
-    tabPanel("Categorical Data"),
+    tabPanel("Categorical Data",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("dataframe_bar", "Select Dataframe:", 
+                             c("Cars from Copart","Cars from auto.am"),
+                             selected = "Cars from Copart"
+                 ),
+                 conditionalPanel(
+                   condition = "input.dataframe_bar == 'Cars from Copart'",
+                   selectInput("x_copart_bar", "Select a categorical variable for X", us_cat_cols, selected = "Make"),
+                   selectInput("y_copart_bar", "Select a numerical variable for Y", c("Count",us_numeric_cols), selected = "Price")
+                 ),
+                 conditionalPanel(
+                   condition = "input.dataframe_bar == 'Cars from auto.am'",
+                   selectInput("x_cars_am_bar", "Select a categorical variable for X", am_cat_cols, selected = "Make"),
+                   selectInput("y_cars_am_bar", "Select a numerical variable for Y", c("Count",am_numeric_cols), selected = "Price")
+                 ),
+               ),
+               mainPanel(
+                 plotlyOutput("barPlot")
+               )
+             )),
     tabPanel("Distributions",
              sidebarPanel(
                selectInput("model", "Car Model:",
@@ -101,8 +126,8 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  group = ""
   output$plot <- renderPlotly({
+    group = ""
     if (input$dataframe == "Cars from Copart"){
       df = us_cars
       x = ~get(input$x_copart)
@@ -111,7 +136,7 @@ server <- function(input, output) {
         group = ~get(input$fill_copart)
       }
     }
-    if (input$dataframe == "Cars from cars.am"){
+    if (input$dataframe == "Cars from auto.am"){
       df = am_cars
       x = ~get("Mileage")
       y = ~get("Price")
@@ -126,6 +151,37 @@ server <- function(input, output) {
     else {
       plot_ly(df, x = x, y = y, color = group, type = "scatter", mode = "markers")
     }
+  })
+  
+  output$barPlot <- renderPlotly({
+    group = ""
+    if (input$dataframe_bar == "Cars from Copart"){
+      df = us_cars
+      x = ~get(input$x_copart_bar)
+      if(input$y_copart_bar == "Count"){
+        df = df %>%
+          group_by_at(input$x_copart_bar) %>%
+          summarize(count = n())
+        y = ~count
+      }
+      else{
+        y = ~get(input$y_copart_bar)
+      }
+    }
+    if (input$dataframe_bar == "Cars from auto.am"){
+      df = am_cars
+      x = ~get(input$x_cars_am_bar)
+      if(input$y_cars_am_bar == "Count"){
+        df <- df %>%
+          group_by_at(input$x_cars_am_bar) %>%
+          summarize(count = n())
+        y = ~count
+      }
+      else{
+        y = ~get(input$y_cars_am_bar)
+      }
+    }
+    plot_ly(df, x = x, y = y, type = "bar")
   })
 
   output$distPlotByModel <- renderPlotly({
