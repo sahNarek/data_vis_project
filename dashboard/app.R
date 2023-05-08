@@ -11,10 +11,8 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 
-print(getwd())
-load("../data/profitable_cars_us_am.rda")
-cars_us_am <- cars_us_am %>% na.omit()
-str(cars_us_am)
+load("./data/us_cars.rda")
+load("./data/am_cars.rda")
 
 addPlotRow <- function(plotName1, plotName2) {
   return (fluidRow(splitLayout(cellWidths = c("50%", "50%"), plotlyOutput(plotName1),

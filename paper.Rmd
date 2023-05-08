@@ -1,0 +1,18 @@
+---
+title: "Cars Auctions"
+author: "Erik Nuroyan, Narek Sahakyan"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+---
+
+\newpage
+
+# Introduction
+
+Intro text
+
+# Eda
+
+eda text

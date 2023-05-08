@@ -42,7 +42,6 @@ us_cars$ShippingCost <- 3000
 #   filter((Price.x * 1.15 + ImportPrice + ShippingCost) < Price.y)
 
 write.csv(us_cars, file = "./data/us_cars.csv")
-write.csv(us_cars, file = "./data/us_cars.rda")
-
+save(us_cars, file = "./data/us_cars.rda")
 write.csv(am_cars, file = "./data/am_cars.rda")
 save(am_cars, file = "data/am_cars.rda")
