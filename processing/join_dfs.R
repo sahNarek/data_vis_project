@@ -26,6 +26,16 @@ tax_calculator <- function(price, volume){
 us_cars$ImportPrice <- tax_calculator(us_cars$Price, us_cars$Engine)
 us_cars$ShippingCost <- 3000
 
+am_make_models <- distinct(am_cars, Make, Model)
+
+us_cars <- us_cars %>%
+  filter(Make %in% unique(am_make_models$Make), 
+         Model.Group %in% unique(am_make_models$Model))
+
+am_cars <- am_cars %>%
+  filter(Price != 1000000)
+
+
 # am_cars$ProductionYear <- as.integer(am_cars$ProductionYear)
 # 
 # 

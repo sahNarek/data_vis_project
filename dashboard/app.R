@@ -10,6 +10,7 @@
 library(shiny)
 library(ggplot2)
 library(plotly)
+library(dplyr)
 
 load("./data/us_cars.rda")
 load("./data/am_cars.rda")
@@ -20,10 +21,17 @@ addPlotRow <- function(plotName1, plotName2) {
   ))
 }
 
-columns <- colnames(cars_us_am)
-numeric_cols <- columns[sapply(cars_us_am, is.numeric)]
+us_columns <- colnames(us_cars)
+am_columns <- colnames(am_cars)
+am_numeric_cols <- am_columns[sapply(am_cars, is.numeric)]
+us_numeric_cols <- us_columns[sapply(us_cars, is.numeric)]
+us_numeric_cols <- us_numeric_cols[!(us_numeric_cols %in% c("Year","VIN"))]
+am_numeric_cols <- am_numeric_cols[!(am_numeric_cols %in% c("OfferId"))]
 
-columns[numeric_cols]
+us_cat_cols <- us_columns[sapply(us_cars, is.character)]
+us_cat_cols <- us_cat_cols[!(us_cat_cols %in% c("VIN","Model.Group", "Model.Detail"))]
+
+am_cat_cols <- am_columns[sapply(am_cars, is.factor)]
 
 ui <- fluidPage(
   titlePanel("Cars Auction Visualizations"),
@@ -31,9 +39,22 @@ ui <- fluidPage(
     tabPanel("Numerical Data",
              sidebarLayout(
                sidebarPanel(
-                 selectInput("plot_type", "Select plot type:", c("Scatter plot", "Bar plot")),
-                 selectInput("x", "Select variable for X", numeric_cols),
-                 selectInput("y", "Select variable for Y", numeric_cols)
+                 selectInput("dataframe", "Select Dataframe:", 
+                             c("Cars from Copart","Cars from cars.am"),
+                             selected = "Cars from Copart"
+                             ),
+                 conditionalPanel(
+                   condition = "input.dataframe == 'Cars from Copart'",
+                   selectInput("x_copart", "Select variable for X", us_numeric_cols, selected = "Odometer"),
+                   selectInput("y_copart", "Select variable for Y", us_numeric_cols, selected = "Price"),
+                   selectInput("fill_copart", "Select categorical variable for filling", c("None",us_cat_cols), selected = "Make")
+                 ),
+                 conditionalPanel(
+                   condition = "input.dataframe == 'Cars from cars.am'",
+                   selectInput("fill_cars_am", "Select categorical variable for filling", c("None",am_cat_cols), selected = "Make")
+                   # selectInput("x_cars_am", "Select variable for X (AM)", am_numeric_cols, s),
+                   # selectInput("y_cars_am", "Select variable for Y (AM)", am_numeric_cols)
+                 ),
                ),
                mainPanel(
                  plotlyOutput("plot")
@@ -68,8 +89,8 @@ ui <- fluidPage(
                              "Rollover" = "ROLLOVER",
                              "Mechanical" = "Mechanical")),
                
-               sliderInput("year", label = h3("Year"), min = min(cars_us_am$Year), 
-                           max = max(cars_us_am$Year), value = min(cars_us_am$Year), step = 1)
+               sliderInput("year", label = h3("Year"), min = min(us_cars$Year), 
+                           max = max(us_cars$Year), value = min(us_cars$Year), step = 1)
              ),
              
              # Show a plot of the generated distribution
@@ -80,9 +101,31 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-  # Loading the data
+  group = ""
   output$plot <- renderPlotly({
-    plot_ly(cars_us_am, x = ~get(input$x), y = ~get(input$y), type = "scatter", mode = "markers")
+    if (input$dataframe == "Cars from Copart"){
+      df = us_cars
+      x = ~get(input$x_copart)
+      y = ~get(input$y_copart)
+      if (input$fill_copart != "None"){
+        group = ~get(input$fill_copart)
+      }
+    }
+    if (input$dataframe == "Cars from cars.am"){
+      df = am_cars
+      x = ~get("Mileage")
+      y = ~get("Price")
+      if (input$fill_cars_am != "None"){
+        group = ~get(input$fill_cars_am)
+      }
+    }
+    
+    if (group == "") {
+      plot_ly(df, x = x, y = y, type = "scatter", mode = "markers")
+    } 
+    else {
+      plot_ly(df, x = x, y = y, color = group, type = "scatter", mode = "markers")
+    }
   })
 
   output$distPlotByModel <- renderPlotly({
@@ -98,7 +141,7 @@ server <- function(input, output) {
   })
   
   output$counts_by_year <- renderPlotly({
-    ggplot(cars_us_am[cars_us_am$Year == input$year, ], aes(x = Make)) + 
+    ggplot(us_cars[us_cars$Year == input$year, ], aes(x = Make)) + 
       geom_bar(fill = "red") + 
       theme(axis.text.x=element_text(angle = 90)) +
       labs(x = "Car Type", y = "Count") +
