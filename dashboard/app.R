@@ -45,7 +45,7 @@ plot_price_distributions <- function(selectedModel) {
     result_plot <- ggplot(us_cars, aes(Price, fill = Make, colour = Make)) + 
       geom_density(alpha = 0.3) +
       labs(x = "Price in dollars", y = "Density") +
-      ggtitle("Distribution of the us_cars by price")
+      ggtitle("Distribution of the cars by price")
     return (result_plot)
   }
   
@@ -165,6 +165,46 @@ ui <- fluidPage(
              ),
              mainPanel(
                plotlyOutput("distPlot")
+             )),
+    tabPanel("Hypothesis Visualizations",
+             sidebarLayout(
+               sidebarPanel(
+                 selectInput("model", "Car Model:",
+                             c("All" = "ALL",
+                               "Volkswagen" = "VOLKSWAGEN",
+                               "Toyota" = "TOYOTA",
+                               "Porsche" = "PORSCHE",
+                               "Nissan" = "NISSAN",
+                               "Mercedes-Benz" = "MERCEDES-BENZ",
+                               "Mazda" = "MAZDA",
+                               "Lexus" = "LEXUS",
+                               "Honda" = "HONDA",
+                               "BMW" = "BMW",
+                               "Audi" = "AUDI",
+                               "Acura" = "ACURA")),
+                 
+                 selectInput("damage_type", "Damage Type:",
+                             c("All" = "All",
+                               "Front" = "Front",
+                               "Side" = "Side",
+                               "Minor" = "Minor",
+                               "Rear" = "Rear",
+                               "Under" = "Under",
+                               "Wear" = "Wear",
+                               "All Over" = "ALL OVER",
+                               "Rollover" = "ROLLOVER",
+                               "Mechanical" = "Mechanical",
+                               "Vandalism" = "Vandalism",
+                               "Stripped" = "STRIPPED")),
+                 
+                 sliderInput("year", label = h3("Year"), min = min(us_cars$Year), 
+                             max = max(us_cars$Year), value = min(us_cars$Year), step = 1)
+               ),
+               
+               # Show a plot of the generated distribution
+               mainPanel(addPlotRow("distPlotByModel", "odometerVSPrice"),
+                         addPlotRow("cost_by_damage", "counts_by_year")
+               )
              ))
   ),
 )
@@ -265,6 +305,27 @@ server <- function(input, output) {
 
       return (result_plot)
     }
+  })
+  
+  
+  output$distPlotByModel <- renderPlotly({
+    plot_price_distributions(input$model)
+  })
+  
+  output$odometerVSPrice <- renderPlotly({
+    plot_odometer_vs_price(input$model)
+  })
+  
+  output$cost_by_damage <- renderPlotly({
+    plot_cost_by_damage(input$damage_type)
+  })
+  
+  output$counts_by_year <- renderPlotly({
+    ggplot(us_cars[us_cars$Year == input$year, ], aes(x = Make)) + 
+      geom_bar(fill = "red") + 
+      theme(axis.text.x=element_text(angle = 90)) +
+      labs(x = "Car Type", y = "Count") +
+      ggtitle(paste("Car Counts by model for the year: ", input$year)) 
   })
   
 }
