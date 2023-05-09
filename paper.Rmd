@@ -33,8 +33,12 @@ Both datasets contain information on the car's make and model, year of manufactu
 
 # Hypotheses 
 
-```{r, knitr::opts_chunk$set(echo = F,warning = FALSE, message = FALSE)}
-knitr::opts_chunk$set(echo = TRUE, message=F, warning=F)
+```{r setup, include=FALSE, echo=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+```
+
+
+```{r}
 library(ggplot2)
 library(gridExtra)
 library(scales)
@@ -46,7 +50,7 @@ load(file='./data/us_cars.rda')
 ```
 
 ## Heavily damaged cars are more profitable to resell in Armenia.
-```{r, echo=F}
+```{r}
 combined_data <- left_join(us_cars, am_cars, by = join_by(x$Make == y$Make, 
                                                              x$Model.Group == y$Model,
                                                              x$Year == y$ProductionYear)) %>% na.omit()
@@ -70,7 +74,7 @@ ggplot(summarised_data, aes(x = Price.Imported, y = Price.AM, color = factor(Dam
 As we can see most of the cars regardless of damage type are profitable to bring and resell in Armenia, but we have a few cars, where the damage is from front and their market price is lower than the price of the same car, when imported from US. We can see that in general if the repair cost is high, the profit can be higher, which leads to an idea that the repair cost in US is higher than in Armenia, as almost all of the cars imported to Armenia are damaged are repaired in Armenia for later usage or profitable sale. 
 
 
-```{r, echo=F}
+```{r}
 
 summarised_data$Repaired.US <- (summarised_data$Price.US_auction * 1.2) + summarised_data$US.Repair
 
@@ -82,7 +86,7 @@ ggplot(summarised_data, aes(x = Repaired.US, y = Price.Retail, color = factor(Da
 As we can see the the observations are equally distributed along the y = x line, meaning that depending on the type of the damage, the repair may be or may not profitable.
 We can see that the repair is mostly profitable for cars with higher mileage, as most probably the parts can be bought from the OEM used market and the material cost will be cheap. We can see that most of the cars that are worth repairing in US are damaged from the Front side. As the material cost is going to be the same in Armenia and US, and actually in US the material cost may be even lower, as the market is more advanced there.
 
-```{r, echo = F}
+```{r}
 summarised_data$profit <- summarised_data$Price.AM - summarised_data$Price.Imported
 summarised_data <- summarised_data %>%
   filter(profit > 0)
@@ -95,13 +99,13 @@ As we can see the cars that are damaged from the front side are most profitable 
 
 
 
-## Japanesse cars are cheaper to repair compared to German cars in Armenia.
-```{r, echo=F}
+## Japanese cars are cheaper to repair compared to German cars in Armenia.
+```{r}
 
 german_car_names <- c("AUDI", "BMW", "MERCEDES-BENZ", "PORSCHE", "VOLKSWAGEN")
 
 german_cars <- us_cars[us_cars$Make %in% german_car_names, ]
-japanesse_cars <- us_cars[!(us_cars$Make %in% german_car_names), ]
+Japanese_cars <- us_cars[!(us_cars$Make %in% german_car_names), ]
 
 
 ggplot(german_cars, aes(x = Repair.cost)) + 
@@ -110,17 +114,18 @@ ggplot(german_cars, aes(x = Repair.cost)) +
   ggtitle("Distribution of repair costs for German cars") +
   labs(x = "Repair cost", y = "Density")
 
-ggplot(japanesse_cars, aes(x = Repair.cost)) + 
+ggplot(Japanese_cars, aes(x = Repair.cost)) + 
   geom_density(fill = "lightblue") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  ggtitle("Distribution of repair costs for Japanesse cars") +
+  ggtitle("Distribution of repair costs for Japanese cars") +
   labs(x = "Repair cost", y = "Density")
 
 ```
+We can see the distribution plots of the repair costs both for Japanese and German cars. For the Japanese cars we can see that most of the observations are within the region of [0, 20000] dollars. Nevertheless, for the German cars the range is much wider reaching up to 35000-40000 dollars for most of the observations. This supports the claim that in general Japanese cars are cheaper to repair compared to German cars in Armenia.
 
 ## Color, Mileage and damage type have a lot of impact on the cars price.
 
-```{r, echo=F}
+```{r}
 
 # Color
 
@@ -139,8 +144,10 @@ ggplot(us_cars, aes(x = Color, y = Est..Retail.Value)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by color in US") +
   labs(x = "Color", y = "Price")
+```
+We can see the boxplots of the prices for each color both plotted using Armenian and US cars datasets. We can see that the overall picture is quite similar for both countries. However, for Armenia we can notice that Golden color has the highest median compared to US where Burgundy has the highest median. In Armenia, however the price difference between colors and their corresponding price ranges is way more noticeable as such colors as Black and White also have comparably higher prices. Note that we don't take into account the colors which have very few observations.
 
-
+```{r}
 # Damage type and the Price
 ggplot(us_cars, aes(x = Damage.Description, y = Price)) + 
   geom_violin(fill = "lightblue") + 
@@ -148,14 +155,18 @@ ggplot(us_cars, aes(x = Damage.Description, y = Price)) +
   ggtitle("Prices of the cars by damage type in the US") +
   labs(x = "Damage type", y = "Price")
 
+```
+The violin plots above show the distributions of the price of the car by the damage types. As we can see for such damages as All Over, Mechanical and Minor the Price doesn't go higher than 20000 dollars.Yet, for all the other damage types the prices may go up to 58000 dollars. Therefore, we may claim that the damage type has an impact on the price.
 
+
+```{r}
 # Milage and the Price
 # For US
 ggplot(us_cars, aes(x = Odometer, y = Price)) + 
   geom_point(alpha = 0.3, color = "darkblue") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by milage in the US") +
-  labs(x = "Milage", y = "Price")
+  labs(x = "Mileage", y = "Price")
 
 # For the Armenia
 ggplot(am_cars, aes(x = Mileage, y = Price)) + 
@@ -164,12 +175,14 @@ ggplot(am_cars, aes(x = Mileage, y = Price)) +
   ylim(c(0, 250000)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by mileage in Armenia") +
-  labs(x = "Milage", y = "Price")
+  labs(x = "Mileage", y = "Price")
 
 ```
 
+The scatterplots above show the relationship of the Mileage and the price of the cars in Armenia and US. Though we have much less observations for US cars, the overall picture is very much similar. We may notice that we have cars with higher price when the milage is low and as the Milage increases we have less and less cars with higher prices. Therefore, we may state that Mileage does have an impact on the price.
+
 ## The popular cars in US and Armenia are quite different
-```{r, echo=F}
+```{r}
 
 # For US
 ggplot(us_cars, aes(x = Make)) + 
@@ -186,6 +199,8 @@ ggplot(am_cars, aes(x = Make)) +
   labs(x = "Car Model", y = "Count")
 
 ```
+The barplots above displays the counts of the cars by car models for Armenia and US. For most of the cars which don't have high counts the results are very much alike (Acura, Audi, Mercedes-Benz, Volkswagen). For Toyota, it's nearly the same, since this is the car which appears the most in the auctions both for Armenia and US. Yet, for such car models as BMW, Lexus, Mazda the picture is different for Armenia compared to US, since the numbers are higher for the former. In US, Toyota is followed by Nissan and Honda.
+
 
 # Conclusion
 
