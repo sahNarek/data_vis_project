@@ -17,7 +17,7 @@ In this paper, we aim to test several hypotheses related to the car auction mark
 
 To accomplish our goals, we will use a dataset that contains information on the prices, models, mileage, engine volume, damage type, and fuel type of cars sold in various car auctions around the world. We will use different data visualization techniques, including histograms, box plots, scatter plots, and bar charts, to compare and contrast data from different countries and analyze the relationships between variables.
 
-We will first investigate whether damaged cars are more profitable to resell in Armenia than undamaged ones by comparing the prices of damaged and undamaged cars in the dataset. Next, we will examine the repair costs of Japanese and German cars in different countries to determine if there is a significant difference in repair expenses. Then, we will explore the impact of car color, mileage, and damage type on its price using regression models and scatter plots.
+We will first investigate whether damaged cars are more profitable to resell in Armenia comparing the prices of the US cars and undamaged AM cars in the dataset. Next, we will examine the repair costs of Japanese and German cars in different countries to determine if there is a significant difference in repair expenses. Then, we will explore the impact of car color, mileage, and damage type on its price using regression models and scatter plots.
 
 Finally, we will investigate whether most cars with less engine volume have petrol as a fuel type, by analyzing the distribution of engine volume and fuel type across different car models.
 
@@ -26,27 +26,26 @@ Overall, our study will demonstrate the importance of data visualization in anal
 
 # Datasets
 
-This study uses two datasets that were scraped from car auction websites in the United States and Armenia. The US dataset includes information on 749 cars sold in various auctions across the country, while the Armenian dataset includes data on 1407 cars sold in different auctions in Armenia.
+This study uses two datasets that were scraped from car auction websites in the United States and Armenia. The US dataset includes information on 410 cars sold in various auctions across the country, while the Armenian dataset includes data on 1406 cars offered in Armenian market.
 
-Both datasets contain information on the car's make and model, year of manufacture, mileage, engine volume, damage type, and fuel type, as well as the sale price at the auction. The data was cleaned and preprocessed to remove any inconsistencies or errors and to estimate the importing price of each car, which takes into account taxes, customs duties, and other expenses related to importing a car into a particular country.
+Both datasets contain information on the car's make and model, year of manufacture, mileage, engine volume, damage type, and fuel type, as well as the sale prices. The data was cleaned and preprocessed to remove any inconsistencies or errors and to estimate the importing price of each car, which takes into account taxes, customs duties, and other expenses related to importing a car into a particular country.
 
 
 # Hypotheses 
 
 ```{r, knitr::opts_chunk$set(echo = F,warning = FALSE, message = FALSE), echo=F, include=F}
-knitr::opts_chunk$set(echo = TRUE, message=F, warning=F)
+knitr::opts_chunk$set(echo = F, message=F, warning=F)
 library(ggplot2)
 library(gridExtra)
 library(scales)
 library(dplyr)
 
-# Loading datasets
 load(file='./data/am_cars.rda')
 load(file='./data/us_cars.rda')
 ```
 
 ## Heavily damaged cars are more profitable to resell in Armenia.
-```{r}
+```{r, echo = F, fig.height=7, fig.width=8}
 combined_data <- left_join(us_cars, am_cars, by = join_by(x$Make == y$Make, 
                                                              x$Model.Group == y$Model,
                                                              x$Year == y$ProductionYear)) %>% na.omit() %>% distinct()
@@ -74,8 +73,7 @@ ggplot(summarised_data, aes(x = Price.Imported, y = Price.AM, color = factor(Dam
 As we can see most of the cars regardless of damage type are profitable to bring and resell in Armenia, but we have a few cars, where the damage is from front and their market price is lower than the price of the same car, when imported from US. We can see that in general if the repair cost is high, the profit can be higher, which leads to an idea that the repair cost in US is higher than in Armenia, as almost all of the cars imported to Armenia are damaged are repaired in Armenia for later usage or profitable sale. 
 
 
-```{r}
-
+```{r, fig.height=7, fig.width=8}
 summarised_data$Repaired.US <- (summarised_data$Price.US_auction * 1.2) + summarised_data$US.Repair
 
 ggplot(summarised_data, aes(x = Repaired.US, y = Price.Retail, color = factor(Damage.Description))) + 
@@ -160,7 +158,9 @@ ggplot(am_cars, aes(x = Color, y = Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by color in Armenia") +
   labs(x = "Color", y = "Price")
+```
 
+```{r}
 # For the US
 ggplot(us_cars, aes(x = Color, y = Est..Retail.Value)) + 
   geom_boxplot(fill = "lightblue") + 
@@ -191,7 +191,9 @@ ggplot(us_cars, aes(x = Odometer, y = Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by milage in the US") +
   labs(x = "Mileage", y = "Price")
+```
 
+```{r}
 # For the Armenia
 ggplot(am_cars, aes(x = Mileage, y = Price)) + 
   geom_point(alpha = 0.3, color = "darkblue") + 
@@ -200,7 +202,6 @@ ggplot(am_cars, aes(x = Mileage, y = Price)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Prices of the cars by mileage in Armenia") +
   labs(x = "Mileage", y = "Price")
-
 ```
 
 The scatterplots above show the relationship of the Mileage and the price of the cars in Armenia and US. Though we have much less observations for US cars, the overall picture is very much similar. We may notice that we have cars with higher price when the milage is low and as the Milage increases we have less and less cars with higher prices. Therefore, we may state that Mileage does have an impact on the price.
@@ -214,18 +215,27 @@ ggplot(us_cars, aes(x = Make)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Popular cars in US") +
   labs(x = "Car Model", y = "Count")
-
 # For Armenia
+```
+
+```{r}
 ggplot(am_cars, aes(x = Make)) + 
   geom_bar(fill = "red") + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   ggtitle("Popular cars in Armenia") +
   labs(x = "Car Model", y = "Count")
-
 ```
-The barplots above displays the counts of the cars by car models for Armenia and US. For most of the cars which don't have high counts the results are very much alike (Acura, Audi, Mercedes-Benz, Volkswagen). For Toyota, it's nearly the same, since this is the car which appears the most in the auctions both for Armenia and US. Yet, for such car models as BMW, Lexus, Mazda the picture is different for Armenia compared to US, since the numbers are higher for the former. In US, Toyota is followed by Nissan and Honda.
+The bar plots above displays the counts of the cars by car models for Armenia and US. For most of the cars which don't have high counts the results are very much alike (Acura, Audi, Mercedes-Benz, Volkswagen). For Toyota, it's nearly the same, since this is the car which appears the most in the auctions both for Armenia and US. Yet, for such car models as BMW, Lexus, Mazda the picture is different for Armenia compared to US, since the numbers are higher for the former. In US, Toyota is followed by Nissan and Honda.
 
+\newpage 
 
 # Conclusion
+
+## Findings
+We can see that cars that have minor damages are not profitable to import taking into account the expenses needed for bringing the car to Armenia from the auctions, such cars are desirable in US as well as with low investment in Repair they can get a car that is cheaper than its retail. In general the profitable cars are the ones that are are heavily hit from the front side or from all sides. Sedans are most popular options for importing and in a long turn are the most profitable cars. Wagons Hatchbacks or SUV s are profitable for short term, as the market does not have many options and the reseller is expected to sell those cars with a price that is close to the minimum offered in the market, but still make a profit. SUV cars are in general pretty expensive, so as an option of a fast and reliable investment hatchback is better. The popular cars in the market are not expected to bring huge profit, when the saler wants to sell the car close to minimum price, as the market contains multiple variations and the buyer has wider set of options to choose from. Lexus is the most profitable Make for importing in almost every category. Lexus is joined by its family member Toyota, Honda and Acura. 
+
+As the profitable cars are of Japanese origin we continued investigation on repair prices by comparing the country of origin of the cars. Our datasets intersected on German and Japanese cars and the visualizations showed that the Japanese cars are much cheaper to repair compared to German cars. German cars are well known for adopting the latest technologies in their newest generation of cars, but after time Japanese cars seem to be more practical mean of transportation as having less fancy options they are not prone to have technical difficulties.This finding is visible in the last hypothesis as well, where we see that the Japanese cars are pretty popular in US, where driving takes around 5 percent of their life, so they value practicality over the comfort and luxury features more than in Armenia where we can see that people are willing to buy luxury cars such as BMW, Mercedes Benz or Porsche more frequently than people in United States.
+
+As a logical combination of the preference practicality, we have seen that mileage has more effect on the price of the car in Armenia, rather than in US, as the cars in Armenia tend to have problems in a shorter manner than in US, because of the road conditions and comfort vs practicality preference. As US people prefer practical cars, those cars do not lose their value over time as the mileage does not affect their working condition, whereas luxury cars are equipped with dosens of electronical fancy features, which may break over high mileage and affect the price of the car.
 
 

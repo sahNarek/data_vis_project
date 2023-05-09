@@ -191,11 +191,13 @@ server <- function(input, output) {
     }
     
     if (group == "") {
-      plot_ly(df, x = x, y = y, type = "scatter", mode = "markers")
+      plot_ly(df, x = x, y = y, type = "scatter", mode = "markers")%>% layout(xaxis = list(title = xlab("")),
+                                                                              yaxis = list(title = ylab("")))
     } 
     else {
       plot_ly(df, x = x, y = y, color = group, type = "scatter",
-              mode = "markers", opacity = input$opacity)
+              mode = "markers", opacity = input$opacity)%>% layout(xaxis = list(title = xlab("")),
+                                                                   yaxis = list(title = ylab("")))
     }
   })
   
@@ -227,7 +229,8 @@ server <- function(input, output) {
         y = ~get(input$y_cars_am_bar)
       }
     }
-    plot_ly(df, x = x, y = y, type = "bar")
+    plot_ly(df, x = x, y = y, type = "bar") %>% layout(xaxis = list(title = xlab("")),
+                                                      yaxis = list(title = ylab("")))
   })
 
   output$distPlot <- renderPlotly({
@@ -243,17 +246,23 @@ server <- function(input, output) {
     }
     
     if(plot_type == "Histogram"){
-      plot_ly(x = df[,x], type = "histogram")
+      plot_ly(x = df[,x], type = "histogram")%>% layout(xaxis = list(title = xlab("")),
+                                                        yaxis = list(title = ylab("")))
+
     }
     else if(plot_type == "Violin Plot"){
-      plot_ly(x = df[,x], type = "violin")
+      plot_ly(x = df[,x], type = "violin") %>% layout(xaxis = list(title = xlab("")),
+                                                     yaxis = list(title = ylab("")))
     }
     else if(plot_type == "Boxplot"){
-      plot_ly(y = df[,x], type = "box")
+    plot_ly(y = df[,x], type = "box") %>% layout(xaxis = list(title = xlab("")),
+                                                 yaxis = list(title = ylab("")))
     }
     else{
-      result_plot <- ggplot(us_cars, aes(get(x))) + 
-        geom_density(alpha = 0.3)
+      result_plot <- ggplot(us_cars, aes(get(x), fill = Make, colour = Make)) + 
+        geom_density(alpha = 0.3) + labs(x = "Price in dollars", y = "Density") +
+        ggtitle("Distribution of the cars by price")
+
       return (result_plot)
     }
   })
