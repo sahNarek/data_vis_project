@@ -33,12 +33,8 @@ Both datasets contain information on the car's make and model, year of manufactu
 
 # Hypotheses 
 
-```{r setup, include=FALSE, echo=FALSE} 
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
-```
-
-
-```{r}
+```{r, knitr::opts_chunk$set(echo = F,warning = FALSE, message = FALSE), echo=F, include=F}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F)
 library(ggplot2)
 library(gridExtra)
 library(scales)
@@ -53,23 +49,27 @@ load(file='./data/us_cars.rda')
 ```{r}
 combined_data <- left_join(us_cars, am_cars, by = join_by(x$Make == y$Make, 
                                                              x$Model.Group == y$Model,
-                                                             x$Year == y$ProductionYear)) %>% na.omit()
+                                                             x$Year == y$ProductionYear)) %>% na.omit() %>% distinct()
+
 
 summarised_data <- combined_data %>%
-  group_by(Year, Make, Model.Group, Damage.Description) %>%
-  summarise(Price.AM = as.integer(mean(Price.y)), Price.US_auction = as.integer(mean(Price.x)), 
-            Price.Import = as.integer(mean(ImportPrice)), Price.shipping = 3000, 
+  group_by(Year, Make, Model.Group, Damage.Description, BodyStyle) %>%
+  summarise(Price.AM = as.integer(median(Price.y)), Price.US_auction = as.integer(median(Price.x)), 
+            Price.Import = as.integer(median(ImportPrice)), Price.shipping = 3000, 
             Price.Imported = as.integer(Price.US_auction * 1.20 + Price.Import + Price.shipping),
-            US.Repair = as.integer(mean(Repair.cost)), Price.Retail = as.integer(mean(Est..Retail.Value)),
-            Odometer.US = as.integer(mean(Odometer)), Odometer.AM = as.integer(mean(Mileage))
-            ) %>% 
-  filter(US.Repair != 0)
+            US.Repair = as.integer(median(Repair.cost)), Price.Retail = as.integer(median(Est..Retail.Value)),
+            Us.Repaired = US.Repair + (Price.x * 1.2),
+            Odometer.US = as.integer(median(Odometer)), Odometer.AM = as.integer(median(Mileage)),
+            Price.AM_min = as.integer(min(Price.y)), InstantProfit = as.integer(Price.AM_min - Price.Imported),
+            Price.Imported_Min = as.integer(min(Price.US_auction) * 1.2 + min(Price.Import) + 3000),) %>% 
+  filter(US.Repair != 0) %>% 
+  na.omit() %>% distinct()
 
 
 ggplot(summarised_data, aes(x = Price.Imported, y = Price.AM, color = factor(Damage.Description))) + 
-  geom_point(aes(size = summarised_data$US.Repair),alpha = 0.3) + geom_abline(col = "red") + ggtitle("Imported car price vs local market price") + 
+  geom_point(aes(size = summarised_data$US.Repair, shape = summarised_data$BodyStyle),alpha = 0.3) + geom_abline(col = "red") + ggtitle("Imported car price vs local market price") + 
   xlab("Imported price(all expensed calculated) in USD") + ylab("Armenia market price of the car in USD") + 
-  labs(color = "Damage type", size = "Repair cost in USD") 
+  labs(color = "Damage type", size = "Repair cost in USD", shape = "Body Type") 
 ```
 As we can see most of the cars regardless of damage type are profitable to bring and resell in Armenia, but we have a few cars, where the damage is from front and their market price is lower than the price of the same car, when imported from US. We can see that in general if the repair cost is high, the profit can be higher, which leads to an idea that the repair cost in US is higher than in Armenia, as almost all of the cars imported to Armenia are damaged are repaired in Armenia for later usage or profitable sale. 
 
@@ -79,23 +79,47 @@ As we can see most of the cars regardless of damage type are profitable to bring
 summarised_data$Repaired.US <- (summarised_data$Price.US_auction * 1.2) + summarised_data$US.Repair
 
 ggplot(summarised_data, aes(x = Repaired.US, y = Price.Retail, color = factor(Damage.Description))) + 
-  geom_point(aes(size = summarised_data$Odometer.US),alpha = 0.3) + geom_abline(col = "red") + ggtitle("Imported car price vs local market price") + 
+  geom_point(aes(size = summarised_data$Odometer.US, shape = summarised_data$BodyStyle),alpha = 0.3) + geom_abline(col = "red") + 
+  ggtitle("Repaired car price vs car price before damage") + 
   xlab("Cost of the car when repaired in US(USD)") + ylab("Retail cost of the car before the damage.(USD)") + 
-  labs(color = "Damage type", size = "Mileage of the car") 
+  labs(color = "Damage type", size = "Mileage of the car", shape = "Body type of the car") 
 ```
 As we can see the the observations are equally distributed along the y = x line, meaning that depending on the type of the damage, the repair may be or may not profitable.
 We can see that the repair is mostly profitable for cars with higher mileage, as most probably the parts can be bought from the OEM used market and the material cost will be cheap. We can see that most of the cars that are worth repairing in US are damaged from the Front side. As the material cost is going to be the same in Armenia and US, and actually in US the material cost may be even lower, as the market is more advanced there.
 
 ```{r}
 summarised_data$profit <- summarised_data$Price.AM - summarised_data$Price.Imported
-summarised_data <- summarised_data %>%
-  filter(profit > 0)
-ggplot(summarised_data,aes(x = profit, y = Damage.Description)) + 
-  geom_bar(stat = "identity", fill = "red") + ggtitle("Profit of reselling baed on damage type in USD") +
-  xlab("Profit in USD") + ylab("Damage type") + scale_x_continuous(labels = comma)
+# summarised_data <- summarised_data %>%
+#   filter(profit > 0)
+ggplot(summarised_data,aes(x = Damage.Description, y = profit, fill = BodyStyle)) + 
+  geom_bar(stat = "identity", position = "dodge") + ggtitle("Profit of reselling baed on damage type in USD") +
+  ylab("Profit in USD") + xlab("Damage type") + scale_y_continuous(labels = comma)
 ```
 
-As we can see the cars that are damaged from the front side are most profitable to resell in Armenia, whereas the cars with minor damages are not that profitable, as probably the repair cost is almost identical in United States. Also the cars that are hit from the front side, can have some technical problems with the engine, transmission or other technical components of the car, whereas the rear, side or minor damages are less likely to cause technical problems.
+As we can see the cars that are damaged from the front side are most profitable to resell in Armenia, whereas the cars with minor damages are not that profitable, as probably the repair cost is almost identical in United States. Also the cars that are hit from the front side, can have some technical problems with the engine, transmission or other technical components of the car, whereas the rear, side or minor damages are less likely to cause technical problems. However. front damage cars can also be non profitable in cases if labor work such as fixing a bumper, drying or similar jobs are not necessary to do and the repair can be limited to just changing the front headlight or something like that, which includes only material cost.
+
+Let's identify which cars cane make instant profit, for that we will summarize the Armenian cars dataset by taking the minimum of the price, supposing that the car can be sold instantly, if it is close to the minimal price offered in the market.
+
+```{r, echo = F}
+summarised_data <- summarised_data %>%
+  filter(BodyStyle != "Coupe")
+ggplot(summarised_data ,aes(x = Make, y = InstantProfit, fill = Model.Group)) + 
+  geom_bar(stat = "identity", position = "dodge") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(fill = "Model") + ggtitle("Car models for making an instant profit") + 
+  xlab("Car's Make") + ylab("Profit in USD") + facet_wrap(~ BodyStyle, scales = "free")
+```
+We can see that hatchbacks and wagons are most suitable for making a profit fast, as the market does not have many wagon or hatchback cars, and those are assumed to be bought for a lower price than other type of cars. We can see that sedans do not make an instant profit as the variation is higher, so the price varies from low to high as well, and for the same model of the car the difference between the cheapest car and an average price car can be huge. We can see that Lexus in each category are profitable to bring from US and are expected to give a profit, even when sold for a price close to the market's minimal price. The popular cars such as Mazda 6,Toyota Camry,Honda Accord are not expected to bring an instant profit very fast, as the marked is filled with lots of various cars from these models. We can also see that only sedan variations of nation-loved BMW are profitable, if the seller wants to sell the car fast. Volkswagen and Porsche are from the same family and are not valued in Armenia in terms of making a profit when selling the cars close to minimal price.
+
+```{r}
+ggplot(summarised_data ,aes(x = Make, y = profit, fill = Model.Group)) + 
+  geom_bar(stat = "identity", position = "dodge") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  labs(fill = "Model") + ggtitle("Car models for making an expected profit") + 
+  xlab("Car's Make") + ylab("Profit in USD") + facet_wrap(~ BodyStyle, scales = "free")
+```
+We can see that sedans are pretty common to make profit on, Acura and Toyota are most profitable options, if the seller is willing to sell the car close to the average price in the market.
+We can again see that Lexus is profitable in its every variation, whereas BMWs are again profitable in sedan variation only.
 
 
 
