@@ -15,6 +15,8 @@ library(dplyr)
 load("../data/us_cars.rda")
 load("../data/am_cars.rda")
 
+us_cars <- us_cars %>% filter(Damage.Description != "DAMAGE HISTORY")
+
 addPlotRow <- function(plotName1, plotName2) {
   return (fluidRow(splitLayout(cellWidths = c("50%", "50%"), plotlyOutput(plotName1),
                 plotlyOutput(plotName2))
@@ -145,39 +147,25 @@ ui <- fluidPage(
              )),
     tabPanel("Distributions",
              sidebarPanel(
-               selectInput("model", "Car Model:",
-                           c("All" = "ALL",
-                             "Volkswagen" = "VOLKSWAGEN",
-                             "Toyota" = "TOYOTA",
-                             "Porsche" = "PORSCHE",
-                             "Nissan" = "NISSAN",
-                             "Mercedes-Benz" = "MERCEDES-BENZ",
-                             "Mazda" = "MAZDA",
-                             "Lexus" = "LEXUS",
-                             "Honda" = "HONDA",
-                             "BMW" = "BMW",
-                             "Audi" = "AUDI",
-                             "Acura" = "ACURA")),
-               
-               selectInput("damage_type", "Damage Type:",
-                           c("All" = "All",
-                             "Front" = "Front",
-                             "Side" = "Side",
-                             "Minor" = "Minor",
-                             "Rear" = "Rear",
-                             "Under" = "Under",
-                             "Wear" = "Wear",
-                             "All Over" = "ALL OVER",
-                             "Rollover" = "ROLLOVER",
-                             "Mechanical" = "Mechanical")),
-               
-               sliderInput("year", label = h3("Year"), min = min(us_cars$Year), 
-                           max = max(us_cars$Year), value = min(us_cars$Year), step = 1)
+               selectInput("dataframe_dist", "Select Dataframe:", 
+                           c("Cars from Copart","Cars from auto.am"),
+                           selected = "Cars from Copart"
+               ),
+               selectInput("vis_type_dist", "Type of the visualization",
+                           c("Histogram", "Boxplot","Violin Plot", "Density Plot"),
+                           selected = "Histogram"),
+               conditionalPanel(
+                 condition = "input.dataframe_dist == 'Cars from Copart'",
+                 selectInput("x_copart_dist", "Select a numerical variable for X", us_numeric_cols, selected = "Price")
+               ),
+               conditionalPanel(
+                 condition = "input.dataframe_dist == 'Cars from auto.am'",
+                 selectInput("x_cars_am_dist", "Select a numerical variable for X", am_numeric_cols, selected = "Price")
+               )
              ),
-             
-             # Show a plot of the generated distribution
-             mainPanel(addPlotRow("distPlotByModel", "odometerVSPrice"),
-                       addPlotRow("cost_by_damage", "counts_by_year")))
+             mainPanel(
+               plotlyOutput("distPlot")
+             ))
   ),
 )
 
@@ -242,25 +230,34 @@ server <- function(input, output) {
     plot_ly(df, x = x, y = y, type = "bar")
   })
 
-  output$distPlotByModel <- renderPlotly({
-    plot_price_distributions(input$model)
+  output$distPlot <- renderPlotly({
+    plot_type = input$vis_type_dist
+    
+    df = us_cars
+    x = input$x_copart_dist
+
+    
+    if(input$dataframe_dist == "Cars from auto.am") {
+      df = am_cars
+      x = input$x_cars_am_dist
+    }
+    
+    if(plot_type == "Histogram"){
+      plot_ly(x = df[,x], type = "histogram")
+    }
+    else if(plot_type == "Violin Plot"){
+      plot_ly(x = df[,x], type = "violin")
+    }
+    else if(plot_type == "Boxplot"){
+      plot_ly(y = df[,x], type = "box")
+    }
+    else{
+      result_plot <- ggplot(us_cars, aes(get(x))) + 
+        geom_density(alpha = 0.3)
+      return (result_plot)
+    }
   })
   
-  output$odometerVSPrice <- renderPlotly({
-    plot_odometer_vs_price(input$model)
-  })
-  
-  output$cost_by_damage <- renderPlotly({
-    plot_cost_by_damage(input$damage_type)
-  })
-  
-  output$counts_by_year <- renderPlotly({
-    ggplot(us_cars[us_cars$Year == input$year, ], aes(x = Make)) + 
-      geom_bar(fill = "red") + 
-      theme(axis.text.x=element_text(angle = 90)) +
-      labs(x = "Car Type", y = "Count") +
-      ggtitle(paste("Car Counts by model for the year: ", input$year)) 
-  })
 }
 
 # Run the application 
