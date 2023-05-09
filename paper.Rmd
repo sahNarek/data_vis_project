@@ -33,25 +33,70 @@ Both datasets contain information on the car's make and model, year of manufactu
 
 # Hypotheses 
 
-```{r, echo = F}
-# Initial setup for R
+```{r, knitr::opts_chunk$set(echo = F,warning = FALSE, message = FALSE)}
+knitr::opts_chunk$set(echo = TRUE, message=F, warning=F)
 library(ggplot2)
 library(gridExtra)
+library(scales)
+library(dplyr)
 
 # Loading datasets
 load(file='./data/am_cars.rda')
 load(file='./data/us_cars.rda')
-levels(am_cars$Color)[match("Օthercolor",levels(am_cars$Color))] <- "Other Color"
 ```
 
 ## Heavily damaged cars are more profitable to resell in Armenia.
-```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+```{r, echo=F}
+combined_data <- left_join(us_cars, am_cars, by = join_by(x$Make == y$Make, 
+                                                             x$Model.Group == y$Model,
+                                                             x$Year == y$ProductionYear)) %>% na.omit()
+
+summarised_data <- combined_data %>%
+  group_by(Year, Make, Model.Group, Damage.Description) %>%
+  summarise(Price.AM = as.integer(mean(Price.y)), Price.US_auction = as.integer(mean(Price.x)), 
+            Price.Import = as.integer(mean(ImportPrice)), Price.shipping = 3000, 
+            Price.Imported = as.integer(Price.US_auction * 1.20 + Price.Import + Price.shipping),
+            US.Repair = as.integer(mean(Repair.cost)), Price.Retail = as.integer(mean(Est..Retail.Value)),
+            Odometer.US = as.integer(mean(Odometer)), Odometer.AM = as.integer(mean(Mileage))
+            ) %>% 
+  filter(US.Repair != 0)
 
 
+ggplot(summarised_data, aes(x = Price.Imported, y = Price.AM, color = factor(Damage.Description))) + 
+  geom_point(aes(size = summarised_data$US.Repair),alpha = 0.3) + geom_abline(col = "red") + ggtitle("Imported car price vs local market price") + 
+  xlab("Imported price(all expensed calculated) in USD") + ylab("Armenia market price of the car in USD") + 
+  labs(color = "Damage type", size = "Repair cost in USD") 
+```
+As we can see most of the cars regardless of damage type are profitable to bring and resell in Armenia, but we have a few cars, where the damage is from front and their market price is lower than the price of the same car, when imported from US. We can see that in general if the repair cost is high, the profit can be higher, which leads to an idea that the repair cost in US is higher than in Armenia, as almost all of the cars imported to Armenia are damaged are repaired in Armenia for later usage or profitable sale. 
+
+
+```{r, echo=F}
+
+summarised_data$Repaired.US <- (summarised_data$Price.US_auction * 1.2) + summarised_data$US.Repair
+
+ggplot(summarised_data, aes(x = Repaired.US, y = Price.Retail, color = factor(Damage.Description))) + 
+  geom_point(aes(size = summarised_data$Odometer.US),alpha = 0.3) + geom_abline(col = "red") + ggtitle("Imported car price vs local market price") + 
+  xlab("Cost of the car when repaired in US(USD)") + ylab("Retail cost of the car before the damage.(USD)") + 
+  labs(color = "Damage type", size = "Mileage of the car") 
+```
+As we can see the the observations are equally distributed along the y = x line, meaning that depending on the type of the damage, the repair may be or may not profitable.
+We can see that the repair is mostly profitable for cars with higher mileage, as most probably the parts can be bought from the OEM used market and the material cost will be cheap. We can see that most of the cars that are worth repairing in US are damaged from the Front side. As the material cost is going to be the same in Armenia and US, and actually in US the material cost may be even lower, as the market is more advanced there.
+
+```{r, echo = F}
+summarised_data$profit <- summarised_data$Price.AM - summarised_data$Price.Imported
+summarised_data <- summarised_data %>%
+  filter(profit > 0)
+ggplot(summarised_data,aes(x = profit, y = Damage.Description)) + 
+  geom_bar(stat = "identity", fill = "red") + ggtitle("Profit of reselling baed on damage type in USD") +
+  xlab("Profit in USD") + ylab("Damage type") + scale_x_continuous(labels = comma)
 ```
 
+As we can see the cars that are damaged from the front side are most profitable to resell in Armenia, whereas the cars with minor damages are not that profitable, as probably the repair cost is almost identical in United States. Also the cars that are hit from the front side, can have some technical problems with the engine, transmission or other technical components of the car, whereas the rear, side or minor damages are less likely to cause technical problems.
+
+
+
 ## Japanesse cars are cheaper to repair compared to German cars in Armenia.
-```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+```{r, echo=F}
 
 german_car_names <- c("AUDI", "BMW", "MERCEDES-BENZ", "PORSCHE", "VOLKSWAGEN")
 
@@ -75,7 +120,7 @@ ggplot(japanesse_cars, aes(x = Repair.cost)) +
 
 ## Color, Mileage and damage type have a lot of impact on the cars price.
 
-```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+```{r, echo=F}
 
 # Color
 
@@ -124,7 +169,7 @@ ggplot(am_cars, aes(x = Mileage, y = Price)) +
 ```
 
 ## The popular cars in US and Armenia are quite different
-```{r, echo=F, knitr::opts_chunk$set(warning = FALSE, message = FALSE), warning=FALSE}
+```{r, echo=F}
 
 # For US
 ggplot(us_cars, aes(x = Make)) + 

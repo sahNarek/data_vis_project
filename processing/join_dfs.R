@@ -51,6 +51,12 @@ am_cars <- am_cars %>%
 # cars_us_am <- cars_us_am %>%
 #   filter((Price.x * 1.15 + ImportPrice + ShippingCost) < Price.y)
 
+us_cars <- us_cars %>% filter(!(Damage.Description %in% c("STRIPPED","DAMAGE HISTORY")))
+am_cars$ProductionYear <- as.integer(am_cars$ProductionYear)
+
+levels(am_cars$Color)[match("Օthercolor",levels(am_cars$Color))] <- "Other Color"
+
+
 write.csv(us_cars, file = "./data/us_cars.csv")
 save(us_cars, file = "./data/us_cars.rda")
 write.csv(am_cars, file = "./data/am_cars.rda")
